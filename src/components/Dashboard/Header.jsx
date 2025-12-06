@@ -7,27 +7,27 @@ export default function Header({title, subtitle}) {
 
   return (
     <View style={styles.header}>
-      {/* Left side – Hamburger */}
-      <TouchableOpacity
-        style={styles.menuBtn}
-        onPress={() => navigation.openDrawer()}>
-        <Icon name="menu-outline" size={38} color="#fff" />
-      </TouchableOpacity>
+      {/* LEFT */}
+      <View style={styles.profileWrapper}>
+        <TouchableOpacity style={styles.profileBtn}>
+          <Icon name="person-circle-outline" size={40} color="#fff" />
+        </TouchableOpacity>
 
-      {/* Title block */}
-      <View style={{flex: 1}}>
-        <Text style={styles.headerTitle}>{title}</Text>
-        {subtitle ? (
-          <Text style={styles.headerSubtitle}>{subtitle}</Text>
-        ) : null}
+        <TouchableOpacity
+          style={styles.menuBadge}
+          onPress={() => navigation.openDrawer()}>
+          <Icon name="menu-outline" size={14} color="#fff" />
+        </TouchableOpacity>
       </View>
 
-      {/* Right side */}
+      {/* CENTER – TITLE */}
+      <View style={{flex: 1}}>
+        <Text style={styles.headerTitle}>{title}</Text>
+        {subtitle && <Text style={styles.headerSubtitle}>{subtitle}</Text>}
+      </View>
+
+      {/* RIGHT */}
       <View style={styles.headerRight}>
-        {/* <View style={styles.searchBox}>
-          <Text style={styles.searchText}>🔍</Text>
-          <Text style={styles.searchPlaceholder}>Search</Text>
-        </View> */}
         <TouchableOpacity style={styles.notifyBtn}>
           <Text style={{fontSize: 16}}>🔔</Text>
           <View style={styles.notifyBadge}>
@@ -41,17 +41,46 @@ export default function Header({title, subtitle}) {
 
 const styles = StyleSheet.create({
   header: {
-    height: 62,
+    height: 60,
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between', // ⭐ keeps left, middle, right aligned nicely
     borderBottomWidth: 1,
-    borderColor: '#1a1a2e', // darker border for navy theme
-    backgroundColor: '#001f4d', // navy background
+    borderColor: '#1a1a2e',
+    backgroundColor: '#000000ff',
   },
 
-  menuBtn: {
-    marginRight: 12,
+  profileWrapper: {
+    width: 46,
+    height: 46,
+    justifyContent: 'center', // ⭐ centers profile vertically
+    alignItems: 'center', // ⭐ centers profile horizontally
+    marginRight: 12, // ⭐ space before title
+  },
+
+  profileBtn: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1e1e2d', // Looks better behind icon
+  },
+
+  menuBadge: {
+    position: 'absolute',
+    bottom: -2,
+    right: -2,
+    backgroundColor: '#003366',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#000',
   },
 
   headerTitle: {

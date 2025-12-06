@@ -160,7 +160,7 @@ export default function ProjectDetailScreen() {
         <View style={styles.rowBetween}>
           <Text style={styles.sectionTitle}>Recent Tasks</Text>
           <TouchableOpacity>
-            <Text style={{color: '#0b74ff'}}>View All</Text>
+            <Text style={{color: '#6F1FFC'}}>View All</Text>
           </TouchableOpacity>
         </View>
 
@@ -212,7 +212,7 @@ function StatBox({icon, label, value}) {
   return (
     <View style={styles.statCard}>
       <View style={styles.statIcon}>
-        <Icon name={icon} size={20} color="#0b74ff" />
+        <Icon name={icon} size={20} color="#6F1FFC" />
       </View>
       <View>
         <Text style={styles.statLabel}>{label}</Text>
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
   },
   btnOutlineText: {fontWeight: '500'},
   btnPrimary: {
-    backgroundColor: '#0b74ff',
+    backgroundColor: '#6F1FFC',
     padding: 10,
     borderRadius: 8,
     flex: 1,
@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: 8,
-    backgroundColor: '#0b74ff',
+    backgroundColor: '#6F1FFC',
     borderRadius: 8,
   },
 

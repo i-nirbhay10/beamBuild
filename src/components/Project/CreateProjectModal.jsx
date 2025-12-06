@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   cancelBtn: {paddingVertical: 8, paddingHorizontal: 12},
   cancelText: {color: '#777'},
   createBtn: {
-    backgroundColor: '#0b74ff',
+    backgroundColor: '#6F1FFC',
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,

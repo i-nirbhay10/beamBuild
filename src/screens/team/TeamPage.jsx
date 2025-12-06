@@ -106,7 +106,7 @@ export default function TeamPage() {
             onClose={() => setAddMemberVisible(false)}
           />
         </View>
-        Team Members
+        {/* Team Members */}
         {getFilteredMembers().map(user => (
           <TeamMemberCard key={user.id} user={user} />
         ))}
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
     marginBottom: 4,
   },
-  filterBtnActive: {backgroundColor: '#0b74ff'},
+  filterBtnActive: {backgroundColor: '#6F1FFC'},
   filterText: {fontSize: 12, color: '#333'},
   filterTextActive: {color: '#fff'},
 
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#eee',
   },
-  toggleBtnActive: {backgroundColor: '#0b74ff', color: '#fff'},
+  toggleBtnActive: {backgroundColor: '#6F1FFC', color: '#fff'},
 
   membersContainer: {flexDirection: 'column'},
   // membersGrid: {

@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   addBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#0b74ff',
+    backgroundColor: '#6F1FFC',
     padding: 8,
     borderRadius: 6,
     marginBottom: 12,
@@ -158,6 +158,6 @@ const styles = StyleSheet.create({
   },
   cancelBtn: {padding: 10, backgroundColor: '#eee', borderRadius: 6},
   cancelBtnText: {color: '#333'},
-  saveBtn: {padding: 10, backgroundColor: '#0b74ff', borderRadius: 6},
+  saveBtn: {padding: 10, backgroundColor: '#6F1FFC', borderRadius: 6},
   saveBtnText: {color: '#fff'},
 });

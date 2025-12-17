@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {CreateProjectModal} from '../../components/Project/CreateProjectModal';
 import {ProjectCard} from '../../components/Project/ProjectCard';
 import {projects} from '../../data/mockData';
-import Header from '../../components/Dashboard/Header';
+import Header from '../../components/layout/Header';
 
 export default function ProjectsScreen() {
   const [activeTab, setActiveTab] = useState('all');
@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
+    paddingHorizontal: 5,
+    paddingBottom: 5,
     justifyContent: 'space-between',
   },
   tab: {

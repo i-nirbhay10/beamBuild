@@ -1,10 +1,10 @@
-// USERS
 export const currentUser = {
   id: 'u1',
   name: 'John Martinez',
   email: 'john@buildpro.com',
   role: 'contractor',
-  avatar: '/professional-contractor-man.jpg',
+  avatar:
+    'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   phone: '+1 (555) 123-4567',
 };
 
@@ -15,39 +15,43 @@ export const users = [
     name: 'Sarah Chen',
     email: 'sarah@buildpro.com',
     role: 'supervisor',
-    avatar: '/professional-woman-supervisor.png',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u3',
     name: 'Mike Johnson',
     email: 'mike@buildpro.com',
     role: 'engineer',
-    avatar: '/professional-engineer-man.jpg',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u4',
     name: 'Emily Davis',
     email: 'emily@buildpro.com',
     role: 'engineer',
-    avatar: '/professional-woman-engineer.png',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u5',
     name: 'Carlos Rodriguez',
     email: 'carlos@buildpro.com',
     role: 'laborer',
-    avatar: '/construction-worker-man.jpg',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u6',
     name: 'James Wilson',
     email: 'james@buildpro.com',
     role: 'laborer',
-    avatar: '/construction-worker-safety.png',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
 ];
 
-// PROJECTS
 export const projects = [
   {
     id: 'p1',
@@ -93,7 +97,6 @@ export const projects = [
   },
 ];
 
-// TEAMS
 export const teams = [
   {
     id: 't1',
@@ -102,18 +105,24 @@ export const teams = [
     members: [
       {
         id: 'tm1',
+        userId: 'u1',
+        role: 'project_manager',
+        permissions: ['view', 'edit', 'assign', 'approve', 'report'],
+      },
+      {
+        id: 'tm2',
         userId: 'u2',
         role: 'supervisor',
         permissions: ['view', 'edit', 'assign', 'approve'],
       },
       {
-        id: 'tm2',
+        id: 'tm3',
         userId: 'u3',
         role: 'engineer',
         permissions: ['view', 'edit', 'report'],
       },
       {
-        id: 'tm3',
+        id: 'tm4',
         userId: 'u5',
         role: 'laborer',
         permissions: ['view', 'report'],
@@ -126,16 +135,28 @@ export const teams = [
     projectId: 'p2',
     members: [
       {
-        id: 'tm4',
+        id: 'tm5',
+        userId: 'u7',
+        role: 'project_manager',
+        permissions: ['view', 'edit', 'assign', 'approve', 'report'],
+      },
+      {
+        id: 'tm6',
         userId: 'u4',
         role: 'engineer',
         permissions: ['view', 'edit', 'report'],
       },
       {
-        id: 'tm5',
+        id: 'tm7',
         userId: 'u6',
         role: 'laborer',
         permissions: ['view', 'report'],
+      },
+      {
+        id: 'tm8',
+        userId: 'u8',
+        role: 'engineer',
+        permissions: ['view', 'edit', 'report'],
       },
     ],
   },
@@ -145,16 +166,93 @@ export const teams = [
     projectId: 'p3',
     members: [
       {
-        id: 'tm6',
+        id: 'tm9',
+        userId: 'u9',
+        role: 'project_manager',
+        permissions: ['view', 'edit', 'assign', 'approve', 'report'],
+      },
+      {
+        id: 'tm10',
         userId: 'u2',
         role: 'supervisor',
         permissions: ['view', 'edit', 'assign', 'approve'],
+      },
+      {
+        id: 'tm11',
+        userId: 'u10',
+        role: 'engineer',
+        permissions: ['view', 'edit', 'report'],
+      },
+      {
+        id: 'tm12',
+        userId: 'u11',
+        role: 'laborer',
+        permissions: ['view', 'report'],
       },
     ],
   },
 ];
 
-// TASKS
+// export const teams = [
+//   {
+//     id: 't1',
+//     name: 'Alpha Team',
+//     projectId: 'p1',
+//     members: [
+//       {
+//         id: 'tm1',
+//         userId: 'u2',
+//         role: 'supervisor',
+//         permissions: ['view', 'edit', 'assign', 'approve'],
+//       },
+//       {
+//         id: 'tm2',
+//         userId: 'u3',
+//         role: 'engineer',
+//         permissions: ['view', 'edit', 'report'],
+//       },
+//       {
+//         id: 'tm3',
+//         userId: 'u5',
+//         role: 'laborer',
+//         permissions: ['view', 'report'],
+//       },
+//     ],
+//   },
+//   {
+//     id: 't2',
+//     name: 'Beta Team',
+//     projectId: 'p2',
+//     members: [
+//       {
+//         id: 'tm4',
+//         userId: 'u4',
+//         role: 'engineer',
+//         permissions: ['view', 'edit', 'report'],
+//       },
+//       {
+//         id: 'tm5',
+//         userId: 'u6',
+//         role: 'laborer',
+//         permissions: ['view', 'report'],
+//       },
+//     ],
+//   },
+//   {
+//     id: 't3',
+//     name: 'Gamma Team',
+//     projectId: 'p3',
+//     members: [
+//       {
+//         id: 'tm6',
+//         userId: 'u2',
+//         role: 'supervisor',
+//         permissions: ['view', 'edit', 'assign', 'approve'],
+//       },
+//     ],
+//   },
+// ];
+
 export const tasks = [
   {
     id: 'task1',
@@ -237,7 +335,6 @@ export const tasks = [
   },
 ];
 
-// DOCUMENTS
 export const documents = [
   {
     id: 'doc1',
@@ -301,7 +398,6 @@ export const documents = [
   },
 ];
 
-// MESSAGES
 export const messages = [
   {
     id: 'msg1',
@@ -350,7 +446,6 @@ export const messages = [
   },
 ];
 
-// NOTIFICATIONS
 export const notifications = [
   {
     id: 'n1',
@@ -404,7 +499,6 @@ export const notifications = [
   },
 ];
 
-// COMPANY PROFILE
 export const companyProfile = {
   id: 'c1',
   name: 'BuildPro Construction',
@@ -425,7 +519,6 @@ export const companyProfile = {
   completedProjects: 87,
 };
 
-// FUNCTIONS
 export function getProjectById(id) {
   return projects.find(p => p.id === id);
 }
@@ -461,262 +554,3 @@ export function getNotificationsByUserId(userId) {
 export function getUnreadNotificationsCount(userId) {
   return notifications.filter(n => n.userId === userId && !n.read).length;
 }
-
-// // src/data/mockData.js
-// // Plain JS version of your dummy data + query helpers
-
-// export const currentUser = {
-//   id: 'u1',
-//   name: 'John Martinez',
-//   email: 'john@buildpro.com',
-//   role: 'contractor',
-//   avatar: 'https://example.com/contractor.jpg',
-//   phone: '+1 (555) 123-4567',
-// };
-
-// export const users = [
-//   currentUser,
-//   {
-//     id: 'u2',
-//     name: 'Sarah Chen',
-//     email: 'sarah@buildpro.com',
-//     role: 'supervisor',
-//     avatar: 'https://example.com/supervisor1.png',
-//   },
-//   {
-//     id: 'u3',
-//     name: 'Mike Johnson',
-//     email: 'mike@buildpro.com',
-//     role: 'engineer',
-//     avatar: 'https://example.com/engineer1.jpg',
-//   },
-//   {
-//     id: 'u4',
-//     name: 'Emily Davis',
-//     email: 'emily@buildpro.com',
-//     role: 'engineer',
-//     avatar: 'https://example.com/engineer2.png',
-//   },
-//   {
-//     id: 'u5',
-//     name: 'Carlos Rodriguez',
-//     email: 'carlos@buildpro.com',
-//     role: 'laborer',
-//     avatar: 'https://example.com/laborer1.jpg',
-//   },
-//   {
-//     id: 'u6',
-//     name: 'James Wilson',
-//     email: 'james@buildpro.com',
-//     role: 'laborer',
-//     avatar: 'https://example.com/laborer2.png',
-//   },
-// ];
-
-// export const projects = [
-//   {
-//     id: 'p1',
-//     name: 'Downtown Office Complex',
-//     location: '123 Main Street, Downtown',
-//     startDate: '2024-01-15',
-//     endDate: '2024-12-31',
-//     status: 'in-progress',
-//     budget: 2500000,
-//     spent: 1250000,
-//     progress: 45,
-//     description:
-//       'A 12-story commercial office building with underground parking and modern amenities.',
-//     teamId: 't1',
-//   },
-//   {
-//     id: 'p2',
-//     name: 'Riverside Apartments',
-//     location: '456 River Road, Eastside',
-//     startDate: '2024-03-01',
-//     endDate: '2025-06-30',
-//     status: 'in-progress',
-//     budget: 4200000,
-//     spent: 840000,
-//     progress: 20,
-//     description:
-//       'Luxury residential complex with 120 units, pool, and fitness center.',
-//     teamId: 't2',
-//   },
-//   {
-//     id: 'p3',
-//     name: 'Community Center Renovation',
-//     location: '789 Oak Avenue, Midtown',
-//     startDate: '2024-06-01',
-//     endDate: '2024-10-15',
-//     status: 'planning',
-//     budget: 750000,
-//     spent: 25000,
-//     progress: 5,
-//     description:
-//       'Complete renovation of the historic community center including ADA compliance upgrades.',
-//     teamId: 't3',
-//   },
-// ];
-
-// export const teams = [
-//   {
-//     id: 't1',
-//     name: 'Alpha Team',
-//     projectId: 'p1',
-//     members: [
-//       {
-//         id: 'tm1',
-//         userId: 'u2',
-//         role: 'supervisor',
-//         permissions: ['view', 'edit', 'assign', 'approve'],
-//       },
-//       {
-//         id: 'tm2',
-//         userId: 'u3',
-//         role: 'engineer',
-//         permissions: ['view', 'edit', 'report'],
-//       },
-//       {
-//         id: 'tm3',
-//         userId: 'u5',
-//         role: 'laborer',
-//         permissions: ['view', 'report'],
-//       },
-//     ],
-//   },
-//   {
-//     id: 't2',
-//     name: 'Beta Team',
-//     projectId: 'p2',
-//     members: [
-//       {
-//         id: 'tm4',
-//         userId: 'u4',
-//         role: 'engineer',
-//         permissions: ['view', 'edit', 'report'],
-//       },
-//       {
-//         id: 'tm5',
-//         userId: 'u6',
-//         role: 'laborer',
-//         permissions: ['view', 'report'],
-//       },
-//     ],
-//   },
-//   {
-//     id: 't3',
-//     name: 'Gamma Team',
-//     projectId: 'p3',
-//     members: [
-//       {
-//         id: 'tm6',
-//         userId: 'u2',
-//         role: 'supervisor',
-//         permissions: ['view', 'edit', 'assign', 'approve'],
-//       },
-//     ],
-//   },
-// ];
-
-// export const tasks = [
-//   {
-//     id: 'task1',
-//     projectId: 'p1',
-//     title: 'Foundation inspection',
-//     description:
-//       'Complete foundation inspection before proceeding with structural work',
-//     assigneeId: 'u3',
-//     status: 'completed',
-//     priority: 'high',
-//     dueDate: '2024-11-20',
-//     createdAt: '2024-11-01',
-//   },
-//   {
-//     id: 'task2',
-//     projectId: 'p1',
-//     title: 'Steel framework installation',
-//     description: 'Install main steel framework for floors 5-8',
-//     assigneeId: 'u5',
-//     status: 'in-progress',
-//     priority: 'high',
-//     dueDate: '2024-12-15',
-//     createdAt: '2024-11-05',
-//   },
-//   {
-//     id: 'task3',
-//     projectId: 'p1',
-//     title: 'Electrical conduit planning',
-//     description: 'Plan and document electrical conduit routes for all floors',
-//     assigneeId: 'u3',
-//     status: 'pending',
-//     priority: 'medium',
-//     dueDate: '2024-12-20',
-//     createdAt: '2024-11-10',
-//   },
-//   {
-//     id: 'task4',
-//     projectId: 'p2',
-//     title: 'Site preparation',
-//     description: 'Clear and level the construction site',
-//     assigneeId: 'u6',
-//     status: 'in-progress',
-//     priority: 'high',
-//     dueDate: '2024-12-01',
-//     createdAt: '2024-11-01',
-//   },
-//   {
-//     id: 'task5',
-//     projectId: 'p2',
-//     title: 'Permit documentation',
-//     description: 'Prepare and submit building permit documentation',
-//     assigneeId: 'u4',
-//     status: 'completed',
-//     priority: 'urgent',
-//     dueDate: '2024-11-15',
-//     createdAt: '2024-10-20',
-//   },
-//   {
-//     id: 'task6',
-//     projectId: 'p3',
-//     title: 'Architectural assessment',
-//     description: 'Complete architectural assessment of existing structure',
-//     assigneeId: 'u2',
-//     status: 'pending',
-//     priority: 'medium',
-//     dueDate: '2024-12-10',
-//     createdAt: '2024-11-15',
-//   },
-//   {
-//     id: 'task7',
-//     projectId: 'p1',
-//     title: 'Safety equipment check',
-//     description:
-//       'Verify all safety equipment is up to date and properly maintained',
-//     assigneeId: 'u2',
-//     status: 'blocked',
-//     priority: 'urgent',
-//     dueDate: '2024-11-25',
-//     createdAt: '2024-11-08',
-//   },
-// ];
-
-// // --------- helper functions (pure, read-only) ----------
-// export function getProjectById(id) {
-//   return projects.find(p => p.id === id);
-// }
-
-// export function getTeamByProjectId(projectId) {
-//   return teams.find(t => t.projectId === projectId);
-// }
-
-// export function getUserById(id) {
-//   return users.find(u => u.id === id);
-// }
-
-// export function getTasksByProjectId(projectId) {
-//   return tasks.filter(t => t.projectId === projectId);
-// }
-
-// export function getTasksByAssigneeId(assigneeId) {
-//   return tasks.filter(t => t.assigneeId === assigneeId);
-// }

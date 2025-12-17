@@ -38,7 +38,16 @@ export default function TaskCard({task}) {
             ]}>
             {task.status.replace('-', ' ')}
           </Text>
-          <Text style={[styles.badge, {borderWidth: 1, borderColor: '#ccc'}]}>
+          <Text
+            style={[
+              styles.badge,
+              {
+                backgroundColor: '#fff',
+                color: '#000',
+                borderWidth: 1,
+                borderColor: '#ccc',
+              },
+            ]}>
             {task.priority}
           </Text>
           {isOverdue && (
@@ -52,8 +61,12 @@ export default function TaskCard({task}) {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.title}>{task.title}</Text>
-      <Text style={styles.description}>{task.description}</Text>
+      <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+        {task.title}
+      </Text>
+      <Text style={styles.description} numberOfLines={2} ellipsizeMode="tail">
+        {task.description}
+      </Text>
 
       <View style={styles.footer}>
         <View style={styles.assignee}>
@@ -61,10 +74,14 @@ export default function TaskCard({task}) {
             source={{uri: assignee?.avatar || 'https://via.placeholder.com/40'}}
             style={styles.avatar}
           />
-          <Text>{assignee?.name}</Text>
+          <Text numberOfLines={1} ellipsizeMode="tail">
+            {assignee?.name || 'Unassigned'}
+          </Text>
         </View>
-        <View>
-          <Text style={styles.project}>{project?.name}</Text>
+        <View style={styles.projectContainer}>
+          <Text style={styles.project} numberOfLines={1} ellipsizeMode="tail">
+            {project?.name || 'No Project'}
+          </Text>
           <Text style={styles.dueDate}>
             {new Date(task.dueDate).toLocaleDateString('en-US', {
               month: 'short',
@@ -90,14 +107,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 6,
   },
-  badges: {flexDirection: 'row', gap: 6},
+  badges: {flexDirection: 'row'},
   badge: {
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
     fontSize: 10,
     color: '#fff',
-    marginRight: 4,
+    marginRight: 6,
   },
   title: {fontWeight: '700', fontSize: 14, marginBottom: 2},
   description: {fontSize: 12, color: '#555', marginBottom: 6},
@@ -106,8 +123,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  assignee: {flexDirection: 'row', alignItems: 'center', gap: 6},
-  avatar: {width: 24, height: 24, borderRadius: 12},
+  assignee: {flexDirection: 'row', alignItems: 'center'},
+  avatar: {width: 24, height: 24, borderRadius: 12, marginRight: 6},
+  projectContainer: {alignItems: 'flex-end'},
   project: {fontSize: 10, color: '#555'},
   dueDate: {fontSize: 10, color: '#555'},
 });

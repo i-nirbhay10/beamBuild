@@ -5,47 +5,64 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  TextInput,
+  FlatList,
 } from 'react-native';
 import TeamMemberCard from '../../components/team/TeamMemberCard';
-// import AddMemberDialog from '../../components/team/AddMemberDialog';
 import Icon from 'react-native-vector-icons/Feather';
 import {users} from '../../data/mockData';
 import {AddMemberDialog} from '../../components/team/AddMemberDialog';
-import Header from '../../components/Dashboard/Header';
+import Header from '../../components/layout/Header';
 
 export default function TeamPage() {
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [filter, setFilter] = useState('all');
   const [addMemberVisible, setAddMemberVisible] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
-  const teamMembers = users.slice(1); // exclude contractor
+  const teamMembers = users?.slice(1) || []; // safe fallback
   const supervisors = teamMembers.filter(u => u.role === 'supervisor');
   const engineers = teamMembers.filter(u => u.role === 'engineer');
   const laborers = teamMembers.filter(u => u.role === 'laborer');
+  const projectManagers = teamMembers.filter(u => u.role === 'project_manager');
 
   const stats = [
     {title: 'Total Members', value: teamMembers.length},
+    {title: 'Project Managers', value: projectManagers.length},
     {title: 'Supervisors', value: supervisors.length},
     {title: 'Engineers', value: engineers.length},
     {title: 'Laborers', value: laborers.length},
   ];
 
+  // Filter members based on role + search text
   const getFilteredMembers = () => {
+    let members = teamMembers;
     switch (filter) {
       case 'supervisors':
-        return supervisors;
+        members = supervisors;
+        break;
       case 'engineers':
-        return engineers;
+        members = engineers;
+        break;
       case 'laborers':
-        return laborers;
+        members = laborers;
+        break;
+      case 'project_manager':
+        members = projectManagers;
+        break;
       default:
-        return teamMembers;
+        members = teamMembers;
     }
+
+    if (!members) return [];
+    return members.filter(member =>
+      member.name.toLowerCase().includes(searchText.toLowerCase()),
+    );
   };
 
   return (
     <View style={{flex: 1}}>
-      <Header title="Team" subtitle={`Manage your construction projects`} />
+      <Header title="Team" subtitle="Manage your construction projects" />
+
       <ScrollView style={{flex: 1, padding: 12}}>
         {/* Stats */}
         <View style={styles.statsRow}>
@@ -56,73 +73,56 @@ export default function TeamPage() {
             </View>
           ))}
         </View>
-        {/* Filters + Add Member */}
-        <View style={styles.filterRow}>
-          <View
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={styles.filters}>
-            {['all', 'supervisors', 'engineers', 'laborers'].map(f => (
-              <TouchableOpacity
-                key={f}
-                style={[
-                  styles.filterBtn,
-                  filter === f && styles.filterBtnActive,
-                ]}
-                onPress={() => setFilter(f)}>
-                <Text
-                  style={[
-                    styles.filterText,
-                    filter === f && styles.filterTextActive,
-                  ]}>
-                  {f.charAt(0).toUpperCase() + f.slice(1)} (
-                  {getFilteredMembers().length})
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
 
-          <View style={styles.viewToggle}>
-            <TouchableOpacity
-              style={[
-                styles.toggleBtn,
-                viewMode === 'grid' && styles.toggleBtnActive,
-              ]}
-              onPress={() => setViewMode('grid')}>
-              <Icon name="grid" size={18} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.toggleBtn,
-                viewMode === 'list' && styles.toggleBtnActive,
-              ]}
-              onPress={() => setViewMode('list')}>
-              <Icon name="list" size={18} />
-            </TouchableOpacity>
+        {/* Search + Add Member */}
+        <View style={styles.searchRow}>
+          <View style={styles.searchBox}>
+            <Icon name="search" size={16} color="#777" />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search members..."
+              value={searchText}
+              onChangeText={setSearchText}
+            />
           </View>
-
           <AddMemberDialog
             visible={addMemberVisible}
             onClose={() => setAddMemberVisible(false)}
           />
         </View>
-        {/* Team Members */}
+
+        {/* Filters */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.filtersRow}>
+          {[
+            'all',
+            'project_manager',
+            'supervisors',
+            'engineers',
+            'laborers',
+          ].map(f => (
+            <TouchableOpacity
+              key={f}
+              style={[styles.filterBtn, filter === f && styles.filterBtnActive]}
+              onPress={() => setFilter(f)}>
+              <Text
+                style={[
+                  styles.filterText,
+                  filter === f && styles.filterTextActive,
+                ]}>
+                {f.charAt(0).toUpperCase() + f.slice(1)} (
+                {getFilteredMembers().length})
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {/* Team Members List */}
         {getFilteredMembers().map(user => (
           <TeamMemberCard key={user.id} user={user} />
         ))}
-        {/* <View
-          style={[
-            styles.membersContainer,
-            viewMode === 'grid' && styles.membersGrid,
-          ]}>
-          {getFilteredMembers().map(user =>
-            viewMode === 'grid' ? (
-              <TeamMemberCard key={user.id} user={user} />
-            ) : (
-              <TeamMemberCard key={user.id} user={user} />
-            ),
-          )}
-        </View> */}
       </ScrollView>
     </View>
   );
@@ -145,38 +145,54 @@ const styles = StyleSheet.create({
   statValue: {fontSize: 18, fontWeight: '700'},
   statTitle: {fontSize: 12, color: '#555'},
 
-  filterRow: {
+  searchRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    gap: 8,
   },
-  filters: {flexDirection: 'row', flexWrap: 'wrap', gap: 6},
+  searchBox: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    height: 40,
+    gap: 6,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    color: '#333',
+  },
+  addBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#6F1FFC',
+    paddingHorizontal: 12,
+    height: 40,
+    borderRadius: 8,
+    gap: 4,
+  },
+  addText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+
+  filtersRow: {
+    flexDirection: 'row',
+    marginBottom: 12,
+    gap: 6,
+  },
   filterBtn: {
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 6,
     backgroundColor: '#eee',
-    marginRight: 6,
-    marginBottom: 4,
   },
   filterBtnActive: {backgroundColor: '#6F1FFC'},
   filterText: {fontSize: 12, color: '#333'},
   filterTextActive: {color: '#fff'},
-
-  viewToggle: {flexDirection: 'row', gap: 6},
-  toggleBtn: {
-    padding: 6,
-    borderRadius: 6,
-    backgroundColor: '#eee',
-  },
-  toggleBtnActive: {backgroundColor: '#6F1FFC', color: '#fff'},
-
-  membersContainer: {flexDirection: 'column'},
-  // membersGrid: {
-  //   flexDirection: 'row',
-  //   flexWrap: 'wrap',
-  //   justifyContent: 'space-between',
-  // },
 });

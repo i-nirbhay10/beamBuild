@@ -1,11 +1,12 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DashboardScreen from '../screens/Dashboard/DashboardScreen';
-import CustomDrawer from '../CustomDrawer';
 import ProjectsScreen from '../screens/project/ProjectsScreen';
 import TeamPage from '../screens/team/TeamPage';
 import TasksPage from '../screens/task/TasksPage';
 import SettingsPage from '../screens/SettingsPage';
+import ReportsScreen from '../screens/ReportsScreen';
+import CustomDrawer from './CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,6 +21,7 @@ export default function MainDrawer() {
       <Drawer.Screen name="Projects" component={ProjectsScreen} />
       <Drawer.Screen name="Team" component={TeamPage} />
       <Drawer.Screen name="Tasks" component={TasksPage} />
+      <Drawer.Screen name="Reports" component={ReportsScreen} />
       <Drawer.Screen name="Settings" component={SettingsPage} />
     </Drawer.Navigator>
   );

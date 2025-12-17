@@ -38,7 +38,7 @@ export default function ProjectDetailScreen() {
   const budgetPercent = Math.round((project.spent / project.budget) * 100);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {/* Back Button */}
       <TouchableOpacity
         style={styles.backBtn}
@@ -130,24 +130,28 @@ export default function ProjectDetailScreen() {
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>Team Members</Text>
 
-        {team?.members.map(member => {
+        {team?.members?.map(member => {
           const user = getUserById(member.userId);
+
+          if (!user) return null; // ✅ prevent crash
 
           return (
             <View key={member.id} style={styles.teamRow}>
               <Image
                 source={
-                  user.avatar ? {uri: user.avatar} : ' ' //require('../assets/avatar-placeholder.png')
+                  user?.avatar ? {uri: user.avatar} : ' ' // require('../assets/avatar-placeholder.png')
                 }
                 style={styles.avatar}
               />
 
               <View style={{flex: 1}}>
-                <Text style={styles.teamName}>{user?.name}</Text>
+                <Text style={styles.teamName}>
+                  {user?.name ?? 'Unknown User'}
+                </Text>
                 <Text style={styles.teamRole}>{member.role}</Text>
               </View>
 
-              <View style={[styles.badgeSmall]}>
+              <View style={styles.badgeSmall}>
                 <Text>{member.role}</Text>
               </View>
             </View>
@@ -160,7 +164,7 @@ export default function ProjectDetailScreen() {
         <View style={styles.rowBetween}>
           <Text style={styles.sectionTitle}>Recent Tasks</Text>
           <TouchableOpacity>
-            <Text style={{color: '#6F1FFC'}}>View All</Text>
+            <Text style={{color: '#70510dff'}}>View All</Text>
           </TouchableOpacity>
         </View>
 
@@ -212,7 +216,7 @@ function StatBox({icon, label, value}) {
   return (
     <View style={styles.statCard}>
       <View style={styles.statIcon}>
-        <Icon name={icon} size={20} color="#6F1FFC" />
+        <Icon name={icon} size={20} color="#611ffcff" />
       </View>
       <View>
         <Text style={styles.statLabel}>{label}</Text>
@@ -266,7 +270,7 @@ function getTaskColor(status) {
 
 /* Styles */
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, backgroundColor: '#f8f9fc'},
+  container: {flex: 1, padding: 5, backgroundColor: '#f8f9fc'},
   center: {flex: 1, alignItems: 'center', justifyContent: 'center'},
 
   /* Header */
@@ -310,14 +314,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: '#ddd',
-    padding: 10,
+    padding: 8,
     borderRadius: 8,
     gap: 6,
   },
   btnOutlineText: {fontWeight: '500'},
   btnPrimary: {
-    backgroundColor: '#6F1FFC',
-    padding: 10,
+    backgroundColor: '#70510dff',
+    padding: 8,
     borderRadius: 8,
     flex: 1,
   },
@@ -327,17 +331,19 @@ const styles = StyleSheet.create({
   statsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 5,
+    justifyContent: 'space-around',
     marginBottom: 16,
   },
   statCard: {
-    width: '47%',
+    width: '48%',
     backgroundColor: '#fff',
     padding: 14,
     borderRadius: 10,
     elevation: 1,
     flexDirection: 'row',
     gap: 10,
+    overflow: 'hidden',
   },
   statIcon: {
     backgroundColor: '#e5efff',
@@ -345,7 +351,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   statLabel: {color: '#777'},
-  statValue: {fontWeight: '600', marginTop: 2},
+  statValue: {fontSize: 12, fontWeight: '400', marginTop: 2},
 
   /* Progress */
   sectionTitle: {fontSize: 18, fontWeight: '600', marginBottom: 12},
@@ -360,7 +366,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: 8,
-    backgroundColor: '#6F1FFC',
+    backgroundColor: '#70510dff',
     borderRadius: 8,
   },
 

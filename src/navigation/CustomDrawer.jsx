@@ -1,13 +1,15 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/Feather'; // ⭐ Using Feather icons
+import Icon from 'react-native-vector-icons/Feather';
+import {useNavigation} from '@react-navigation/native';
 
 const navigationItems = [
   {name: 'Dashboard', icon: 'grid', route: 'Dashboard'},
   {name: 'Projects', icon: 'folder', route: 'Projects'},
   {name: 'Team', icon: 'users', route: 'Team'},
   {name: 'Tasks', icon: 'check-square', route: 'Tasks'},
+  {name: 'Report', icon: 'bar-chart', route: 'Reports'},
 ];
 
 const secondaryItems = [
@@ -15,10 +17,13 @@ const secondaryItems = [
 ];
 
 export default function CustomDrawer(props) {
+  const navigation = useNavigation();
+
   const currentUser = {
-    name: 'John Doe',
+    name: 'Nirbhay',
     role: 'project manager',
-    avatar: 'https://i.pravatar.cc/300',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   };
 
   return (
@@ -30,9 +35,9 @@ export default function CustomDrawer(props) {
         {/* Logo */}
         <View style={styles.logoContainer}>
           <View style={styles.logoIcon}>
-            <Icon name="home" color="#fff" size={20} />
+            <Icon name="cpu" color="#fff" size={20} />
           </View>
-          <Text style={styles.logoText}>Beeam Build</Text>
+          <Text style={styles.logoText}>Beam Build</Text>
         </View>
 
         {/* Main Menu */}
@@ -84,7 +89,14 @@ export default function CustomDrawer(props) {
           <Text style={styles.userRole}>{currentUser.role}</Text>
         </View>
 
-        <TouchableOpacity onPress={() => console.log('Logout pressed')}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Login'}],
+            });
+            console.log('Logout pressed');
+          }}>
           <Icon name="log-out" size={18} color="#777" />
         </TouchableOpacity>
       </View>
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
   logoIcon: {
     height: 36,
     width: 36,
-    backgroundColor: '#0b74ff',
+    backgroundColor: '#0c0c0cff',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',

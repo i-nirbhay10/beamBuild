@@ -2,20 +2,27 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-export default function Header({title, subtitle}) {
+
+export default function Header({title, subtitle, notifications = 0}) {
   const navigation = useNavigation();
+
+  const handleNotificationPress = () => {
+    // Navigate to Notifications screen
+    navigation.navigate('Notifications'); // Make sure 'Notifications' exists in your navigator
+  };
 
   return (
     <View style={styles.header}>
       {/* LEFT */}
       <View style={styles.profileWrapper}>
-        <TouchableOpacity style={styles.profileBtn}>
+        <TouchableOpacity style={styles.profileBtn} activeOpacity={0.7}>
           <Icon name="person-circle-outline" size={40} color="#fff" />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.menuBadge}
-          onPress={() => navigation.openDrawer()}>
+          onPress={() => navigation.openDrawer()}
+          activeOpacity={0.7}>
           <Icon name="menu-outline" size={14} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -28,11 +35,16 @@ export default function Header({title, subtitle}) {
 
       {/* RIGHT */}
       <View style={styles.headerRight}>
-        <TouchableOpacity style={styles.notifyBtn}>
-          <Text style={{fontSize: 16}}>🔔</Text>
-          <View style={styles.notifyBadge}>
-            <Text style={styles.notifyBadgeText}>3</Text>
-          </View>
+        <TouchableOpacity
+          style={styles.notifyBtn}
+          onPress={handleNotificationPress}
+          activeOpacity={0.7}>
+          <Text style={{fontSize: 14}}>🔔</Text>
+          {notifications > 0 && (
+            <View style={styles.notifyBadge}>
+              <Text style={styles.notifyBadgeText}>{notifications}</Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -45,18 +57,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // ⭐ keeps left, middle, right aligned nicely
+    justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderColor: '#1a1a2e',
     backgroundColor: '#000000ff',
   },
 
   profileWrapper: {
     width: 46,
     height: 46,
-    justifyContent: 'center', // ⭐ centers profile vertically
-    alignItems: 'center', // ⭐ centers profile horizontally
-    marginRight: 12, // ⭐ space before title
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+    position: 'relative',
   },
 
   profileBtn: {
@@ -66,7 +78,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1e1e2d', // Looks better behind icon
+    backgroundColor: '#1e1e2d',
   },
 
   menuBadge: {
@@ -86,11 +98,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#fff', // white text
+    color: '#fff',
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#cbd5e1', // light blue/gray for subtitle
+    color: '#cbd5e1',
     marginTop: 2,
   },
 
@@ -100,22 +112,22 @@ const styles = StyleSheet.create({
   },
 
   notifyBtn: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#003366', // slightly lighter navy
+    backgroundColor: '#21d673ff',
     position: 'relative',
   },
 
   notifyBadge: {
     position: 'absolute',
-    top: 4,
-    right: 4,
+    top: 2,
+    right: 2,
     backgroundColor: '#ff3b30',
-    width: 18,
-    height: 18,
+    width: 14,
+    height: 14,
     borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
 
   notifyBadgeText: {
     color: '#fff',
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '700',
   },
 });

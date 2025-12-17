@@ -8,7 +8,7 @@ export default function App() {
     <SafeAreaProvider>
       <SafeAreaView
         style={{flex: 1, backgroundColor: 'black'}}
-        edges={['top', 'right', 'left']}>
+        edges={['top', 'right', 'left', 'bottom']}>
         <AppNavigation />
       </SafeAreaView>
     </SafeAreaProvider>

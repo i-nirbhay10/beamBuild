@@ -113,10 +113,11 @@ const styles = StyleSheet.create({
   addBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#6F1FFC',
+    backgroundColor: '#080808ff',
     padding: 8,
     borderRadius: 6,
     marginBottom: 12,
+    justifyContent: 'center',
   },
   addBtnText: {color: '#fff', marginLeft: 6},
 

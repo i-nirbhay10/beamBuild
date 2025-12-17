@@ -7,7 +7,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import Header from '../../components/Dashboard/Header';
+import Header from '../../components/layout/Header';
 import StatsCards from '../../components/Dashboard/StatsCards';
 import ProjectOverview from '../../components/Dashboard/ProjectOverview';
 import RecentTasks from '../../components/Dashboard/RecentTasks';
@@ -41,9 +41,26 @@ export default function DashboardScreen() {
         <Header
           title="Dashboard"
           subtitle={`Welcome back, ${currentUser?.name || ''}`}
+          notifications={'3'}
         />
 
-        <ScrollView contentContainerStyle={styles.content}>
+        <View
+          style={{
+            position: 'absolute',
+            opacity: 1,
+            height: 150,
+            backgroundColor: '#000000ff',
+            top: '6.9%',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            // zIndex: -10,
+            // borderBottomLeftRadius: 30,
+            borderBottomRightRadius: 20,
+          }}></View>
+        <ScrollView
+          contentContainerStyle={styles.content}
+          showsHorizontalScrollIndicator={false}>
           <StatsCards />
 
           <View style={styles.grid}>
@@ -53,7 +70,6 @@ export default function DashboardScreen() {
 
           <TeamActivity />
         </ScrollView>
-
         {/* Project Detail Modal */}
         {openProjectId && (
           <View style={styles.projectModal}>
@@ -70,7 +86,7 @@ export default function DashboardScreen() {
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#f5f7fb'},
-  content: {padding: 16, paddingBottom: 120},
+  content: {padding: 5, paddingBottom: 10},
   grid: {flexDirection: 'row', gap: 12, justifyContent: 'space-between'},
   projectModal: {
     position: 'absolute',
@@ -82,6 +98,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     elevation: 5,
+    zIndex: 10,
   },
   modalClose: {
     position: 'absolute',

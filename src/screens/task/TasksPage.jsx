@@ -13,7 +13,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import {tasks, projects} from '../../data/mockData';
 import TaskCard from '../../components/task/TaskCard';
-import Header from '../../components/Dashboard/Header';
+import Header from '../../components/layout/Header';
 import NewTaskModal from '../../components/task/NewTaskModal';
 import NewTaskBottomSheet from '../../components/task/NewTaskModal';
 
@@ -93,11 +93,7 @@ export default function TasksPage() {
 
       {/* Project Filters */}
       <View style={styles.tabRow}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          // contentContainerStyle={styles.filterScroll}
-        >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableOpacity
             style={[
               styles.filterBtn,
@@ -147,6 +143,7 @@ export default function TasksPage() {
 
       {/* Tasks List */}
       <SectionList
+        showsVerticalScrollIndicator={false}
         sections={sections}
         keyExtractor={item => item.id}
         renderItem={({item}) => <TaskCard task={item} />}
@@ -155,7 +152,7 @@ export default function TasksPage() {
             {title.charAt(0).toUpperCase() + title.slice(1)} ({data.length})
           </Text>
         )}
-        contentContainerStyle={{paddingHorizontal: 12, paddingBottom: 20}}
+        contentContainerStyle={{paddingHorizontal: 5, paddingBottom: 20}}
       />
       <NewTaskBottomSheet
         isVisible={newTaskVisible}
@@ -175,14 +172,14 @@ const styles = StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    paddingHorizontal: 12,
-    marginTop: 10,
+    justifyContent: 'space-around',
+    paddingHorizontal: 5,
+    marginTop: 5,
     rowGap: 5,
   },
 
   statCard: {
-    width: SCREEN_WIDTH * 0.44,
+    width: SCREEN_WIDTH * 0.47,
     backgroundColor: '#fff',
     borderRadius: 14,
     padding: 14,
@@ -199,7 +196,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
   },
 
   statInfo: {
@@ -224,11 +221,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
+    paddingHorizontal: 5,
     justifyContent: 'space-between',
   },
   filterScroll: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 5,
     paddingVertical: 8,
     flexDirection: 'row',
   },
@@ -263,7 +260,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 5,
     marginTop: 5,
     paddingVertical: 10,
     // maxHeight: 60,
@@ -271,8 +268,8 @@ const styles = StyleSheet.create({
 
   searchInput: {
     flex: 1,
-    height: 42,
-    paddingHorizontal: 12,
+    height: 40,
+    paddingHorizontal: 5,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 10,

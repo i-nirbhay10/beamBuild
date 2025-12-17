@@ -11,7 +11,7 @@ import {
 import {Switch} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {currentUser} from '../data/mockData';
-import Header from '../components/Dashboard/Header';
+import Header from '../components/layout/Header';
 
 export default function SettingsPage() {
   const [emailNotifications, setEmailNotifications] = useState(true);
@@ -32,9 +32,12 @@ export default function SettingsPage() {
 
           <View style={styles.profileContainer}>
             <View style={styles.avatarContainer}>
+              {/* currentUser.avatar */}
               <Image
                 source={{
-                  uri: currentUser.avatar || 'https://via.placeholder.com/100',
+                  uri:
+                    'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg' ||
+                    'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
                 }}
                 style={styles.avatar}
               />

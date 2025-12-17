@@ -87,8 +87,13 @@ export default function TeamMemberCard({user}) {
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={styles.viewBtn}
-          onPress={() => navigation.navigate('UserTasks', {id: user.id})}>
-          <Text style={styles.viewBtnText}>View Profile</Text>
+          onPress={() =>
+            navigation.navigate('TeamProfile', {
+              userId: user.id,
+            })
+          }>
+          <Icon name="user" size={14} color="#6F1FFC" />
+          <Text style={styles.viewText}>View Profile</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.iconBtn}>
@@ -150,10 +155,19 @@ const styles = StyleSheet.create({
   viewBtn: {
     flex: 1,
     backgroundColor: '#eef4ff',
-    padding: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 6,
+    gap: 6,
+    justifyContent: 'center',
   },
-  viewBtnText: {textAlign: 'center', color: '#0b74ff', fontWeight: '600'},
+  viewText: {
+    fontSize: 12,
+    color: '#6F1FFC',
+    fontWeight: '500',
+    // textAlign: 'center',
+  },
+
   iconBtn: {
     width: 38,
     height: 38,

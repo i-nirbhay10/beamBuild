@@ -10,10 +10,15 @@ import {
 } from 'react-native';
 import {Switch} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {currentUser} from '../data/mockData';
+// import {currentUser} from '../data/mockData';
 import Header from '../components/layout/Header';
+import {useAuth} from '../context/AuthContext';
 
 export default function SettingsPage() {
+  const {user, logout, isLoading} = useAuth();
+
+  const currentUser = user;
+
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [taskReminders, setTaskReminders] = useState(true);
   const [teamUpdates, setTeamUpdates] = useState(false);

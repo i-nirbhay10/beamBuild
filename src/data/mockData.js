@@ -193,66 +193,6 @@ export const teams = [
   },
 ];
 
-// export const teams = [
-//   {
-//     id: 't1',
-//     name: 'Alpha Team',
-//     projectId: 'p1',
-//     members: [
-//       {
-//         id: 'tm1',
-//         userId: 'u2',
-//         role: 'supervisor',
-//         permissions: ['view', 'edit', 'assign', 'approve'],
-//       },
-//       {
-//         id: 'tm2',
-//         userId: 'u3',
-//         role: 'engineer',
-//         permissions: ['view', 'edit', 'report'],
-//       },
-//       {
-//         id: 'tm3',
-//         userId: 'u5',
-//         role: 'laborer',
-//         permissions: ['view', 'report'],
-//       },
-//     ],
-//   },
-//   {
-//     id: 't2',
-//     name: 'Beta Team',
-//     projectId: 'p2',
-//     members: [
-//       {
-//         id: 'tm4',
-//         userId: 'u4',
-//         role: 'engineer',
-//         permissions: ['view', 'edit', 'report'],
-//       },
-//       {
-//         id: 'tm5',
-//         userId: 'u6',
-//         role: 'laborer',
-//         permissions: ['view', 'report'],
-//       },
-//     ],
-//   },
-//   {
-//     id: 't3',
-//     name: 'Gamma Team',
-//     projectId: 'p3',
-//     members: [
-//       {
-//         id: 'tm6',
-//         userId: 'u2',
-//         role: 'supervisor',
-//         permissions: ['view', 'edit', 'assign', 'approve'],
-//       },
-//     ],
-//   },
-// ];
-
 export const tasks = [
   {
     id: 'task1',
@@ -332,6 +272,42 @@ export const tasks = [
     priority: 'urgent',
     dueDate: '2024-11-25',
     createdAt: '2024-11-08',
+  },
+  {
+    id: 'task8',
+    projectId: 'p1',
+    title: 'Inspect fire extinguishers',
+    description:
+      'Check that all fire extinguishers are charged and accessible.',
+    assigneeId: 'u5',
+    status: 'in-progress',
+    priority: 'high',
+    dueDate: '2025-01-10',
+    createdAt: '2024-12-01',
+  },
+  {
+    id: 'task9',
+    projectId: 'p3',
+    title: 'Update project documentation',
+    description:
+      'Ensure all project documents are up to date and shared with the team.',
+    assigneeId: 'u5',
+    status: 'blocked',
+    priority: 'urgent',
+    dueDate: '2024-12-20',
+    createdAt: '2024-11-15',
+  },
+  {
+    id: 'task10',
+    projectId: 'p3',
+    title: 'Server security audit',
+    description:
+      'Audit all servers for security compliance and vulnerabilities.',
+    assigneeId: 'u5',
+    status: 'blocked',
+    priority: 'urgent',
+    dueDate: '2024-12-30',
+    createdAt: '2024-11-25',
   },
 ];
 
@@ -505,7 +481,7 @@ export const companyProfile = {
   email: 'contact@buildpro.com',
   phone: '+1 (555) 000-1234',
   address: '500 Construction Ave, Suite 200, New York, NY 10001',
-  logo: '/construction-company-logo.png',
+  logo: 'https://img.freepik.com/free-photo/observation-urban-building-business-steel_1127-2397.jpg?semt=ais_hybrid&w=740&q=80',
   description:
     'BuildPro Construction is a leading construction company specializing in commercial and residential projects. With over 15 years of experience, we deliver high-quality construction services on time and within budget.',
   expertise: [

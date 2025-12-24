@@ -203,12 +203,21 @@ const StatCard = ({icon, title, value, danger}) => (
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        gap: 10,
       }}>
-      <Ionicons name={icon} size={22} color={danger ? '#ef4444' : '#2563eb'} />
-      <Text style={styles.statValue}>{value}</Text>
+      <View style={[styles.iconBox]}>
+        <Ionicons
+          name={icon}
+          size={20}
+          color={danger ? '#ef4444' : '#2563eb'}
+        />
+      </View>
+
+      <View>
+        <Text style={styles.statValue}>{value}</Text>
+        <Text style={styles.statTitle}>{title}</Text>
+      </View>
     </View>
-    <Text style={styles.statTitle}>{title}</Text>
   </View>
 );
 
@@ -269,9 +278,23 @@ const styles = StyleSheet.create({
   },
 
   dangerCard: {borderColor: '#ef4444', borderWidth: 1},
-
-  statValue: {fontSize: 22, color: '#fff', fontWeight: '700'},
-  statTitle: {color: '#94a3b8', marginTop: 4},
+  iconBox: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#10b98122',
+  },
+  statValue: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  statTitle: {
+    color: '#94a3b8',
+    fontSize: 12,
+  },
 
   section: {marginTop: 16},
   sectionTitle: {color: '#fff', fontSize: 18, marginBottom: 12},

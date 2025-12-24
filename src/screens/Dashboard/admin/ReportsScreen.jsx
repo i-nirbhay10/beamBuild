@@ -2,8 +2,8 @@ import React from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import {Card, Button, ProgressBar} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
-import {projects, tasks, users} from '../data/mockData';
-import BackButton from '../components/layout/BackButton';
+import {projects, tasks, users} from '../../../data/mockData';
+import BackButton from '../../../components/layout/BackButton';
 
 // Chart placeholder
 const ChartPlaceholder = ({title, subtitle}) => (

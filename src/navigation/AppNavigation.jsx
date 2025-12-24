@@ -2,12 +2,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
 import MainDrawer from './MainDrawer';
-import ProjectDetailScreen from '../screens/project/ProjectDetailScreen';
-import ProjectsScreen from '../screens/project/ProjectsScreen';
-import TeamProfileScreen from '../screens/team/TeamProfileScreen';
-import NotificationsScreen from '../screens/NotificationsScreen';
+import ProjectDetailScreen from '../screens/common/project/ProjectDetailScreen';
+import ProjectsScreen from '../screens/Dashboard/admin/ProjectsScreen';
+import TeamProfileScreen from '../screens/common/team/TeamProfileScreen';
+import NotificationsScreen from '../screens/common/NotificationsScreen';
 import SignupScreen from '../screens/auth/SignupScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import DummyLoginScreen from '../screens/auth/DummyLoginScreen';

@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {notifications} from '../data/mockData';
+import {notifications} from '../../data/mockData';
 
 const iconMap = {
   task: 'check-square',

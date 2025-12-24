@@ -15,6 +15,7 @@ import {useAuth} from '../../context/AuthContext';
 
 const roleIcons = {
   contractor: 'business',
+  'project-manager': 'business', // added
   supervisor: 'shield-checkmark',
   engineer: 'construct',
   laborer: 'hammer',
@@ -22,6 +23,7 @@ const roleIcons = {
 
 const roleColors = {
   contractor: '#2563eb',
+  'project-manager': '#8b5cf6',
   supervisor: '#f59e0b',
   engineer: '#3b82f6',
   laborer: '#10b981',
@@ -29,6 +31,8 @@ const roleColors = {
 
 const roleDescriptions = {
   contractor: 'Full access to all projects, teams, reports, and settings',
+  'project-manager':
+    'Oversee projects, manage timelines, assign tasks, and coordinate teams',
   supervisor: 'Manage teams, assign tasks, approve work, view reports',
   engineer: 'View projects, edit technical documents, report progress',
   laborer: 'View assigned tasks, report work completion and issues',
@@ -349,7 +353,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2563eb',
     padding: 14,
     borderRadius: 14,
-    marginTop: 20,
+    marginTop: 10,
   },
 
   loginDisabled: {

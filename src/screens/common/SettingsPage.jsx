@@ -10,9 +10,8 @@ import {
 } from 'react-native';
 import {Switch} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-// import {currentUser} from '../data/mockData';
-import Header from '../components/layout/Header';
-import {useAuth} from '../context/AuthContext';
+import Header from '../../components/layout/Header';
+import {useAuth} from '../../context/AuthContext';
 
 export default function SettingsPage() {
   const {user, logout, isLoading} = useAuth();
@@ -26,15 +25,10 @@ export default function SettingsPage() {
 
   return (
     <View style={{flex: 1}}>
-      <Header title="setting" subtitle={`Manage your construction projects`} />
+      <Header title="Profile" subtitle={`Update your personal information`} />
       <ScrollView style={styles.container}>
         {/* Profile Section */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Profile</Text>
-          <Text style={styles.cardDescription}>
-            Update your personal information
-          </Text>
-
           <View style={styles.profileContainer}>
             <View style={styles.avatarContainer}>
               {/* currentUser.avatar */}
@@ -186,7 +180,7 @@ export default function SettingsPage() {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 16, backgroundColor: '#f2f2f2'},
+  container: {flex: 1, padding: 5, backgroundColor: '#f2f2f2'},
   card: {
     backgroundColor: '#fff',
     borderRadius: 10,

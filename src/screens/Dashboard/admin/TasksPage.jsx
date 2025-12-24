@@ -11,11 +11,10 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
-import {tasks, projects} from '../../data/mockData';
-import TaskCard from '../../components/task/TaskCard';
-import Header from '../../components/layout/Header';
-import NewTaskModal from '../../components/task/NewTaskModal';
-import NewTaskBottomSheet from '../../components/task/NewTaskModal';
+import {tasks, projects} from '../../../data/mockData';
+import TaskCard from '../../../components/task/TaskCard';
+import Header from '../../../components/layout/Header';
+import NewTaskBottomSheet from '../../../components/task/NewTaskModal';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 

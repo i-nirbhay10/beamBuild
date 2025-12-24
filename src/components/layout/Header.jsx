@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {useAuth} from '../../context/AuthContext';
 
 export default function Header({title, subtitle, notifications = 0}) {
   const navigation = useNavigation();
+  const {user} = useAuth();
+  console.log(user, 'useruseruseruseruser');
 
   const handleNotificationPress = () => {
     // Navigate to Notifications screen
@@ -16,7 +19,15 @@ export default function Header({title, subtitle, notifications = 0}) {
       {/* LEFT */}
       <View style={styles.profileWrapper}>
         <TouchableOpacity style={styles.profileBtn} activeOpacity={0.7}>
-          <Icon name="person-circle-outline" size={40} color="#fff" />
+          {user?.avatar ? (
+            <Image
+              source={{uri: user.avatar}}
+              style={styles.avatar}
+              resizeMode="cover"
+            />
+          ) : (
+            <Icon name="person-circle-outline" size={40} color="#fff" />
+          )}
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -69,6 +80,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 12,
     position: 'relative',
+  },
+
+  avatar: {
+    width: '100%',
+    height: '100%',
   },
 
   profileBtn: {

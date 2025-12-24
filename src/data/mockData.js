@@ -1,3 +1,7 @@
+// =====================
+// USERS
+// =====================
+
 export const currentUser = {
   id: 'u1',
   name: 'John Martinez',
@@ -10,6 +14,14 @@ export const currentUser = {
 
 export const users = [
   currentUser,
+  {
+    id: 'u7',
+    name: 'Robert Thompson',
+    email: 'robert@buildpro.com',
+    role: 'project-manager',
+    avatar:
+      'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
+  },
   {
     id: 'u2',
     name: 'Sarah Chen',
@@ -51,6 +63,10 @@ export const users = [
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
 ];
+
+// =====================
+// PROJECTS
+// =====================
 
 export const projects = [
   {
@@ -97,6 +113,10 @@ export const projects = [
   },
 ];
 
+// =====================
+// TEAMS
+// =====================
+
 export const teams = [
   {
     id: 't1',
@@ -105,24 +125,18 @@ export const teams = [
     members: [
       {
         id: 'tm1',
-        userId: 'u1',
-        role: 'project_manager',
-        permissions: ['view', 'edit', 'assign', 'approve', 'report'],
-      },
-      {
-        id: 'tm2',
         userId: 'u2',
         role: 'supervisor',
         permissions: ['view', 'edit', 'assign', 'approve'],
       },
       {
-        id: 'tm3',
+        id: 'tm2',
         userId: 'u3',
         role: 'engineer',
         permissions: ['view', 'edit', 'report'],
       },
       {
-        id: 'tm4',
+        id: 'tm3',
         userId: 'u5',
         role: 'laborer',
         permissions: ['view', 'report'],
@@ -135,28 +149,16 @@ export const teams = [
     projectId: 'p2',
     members: [
       {
-        id: 'tm5',
-        userId: 'u7',
-        role: 'project_manager',
-        permissions: ['view', 'edit', 'assign', 'approve', 'report'],
-      },
-      {
-        id: 'tm6',
+        id: 'tm4',
         userId: 'u4',
         role: 'engineer',
         permissions: ['view', 'edit', 'report'],
       },
       {
-        id: 'tm7',
+        id: 'tm5',
         userId: 'u6',
         role: 'laborer',
         permissions: ['view', 'report'],
-      },
-      {
-        id: 'tm8',
-        userId: 'u8',
-        role: 'engineer',
-        permissions: ['view', 'edit', 'report'],
       },
     ],
   },
@@ -166,32 +168,18 @@ export const teams = [
     projectId: 'p3',
     members: [
       {
-        id: 'tm9',
-        userId: 'u9',
-        role: 'project_manager',
-        permissions: ['view', 'edit', 'assign', 'approve', 'report'],
-      },
-      {
-        id: 'tm10',
+        id: 'tm6',
         userId: 'u2',
         role: 'supervisor',
         permissions: ['view', 'edit', 'assign', 'approve'],
       },
-      {
-        id: 'tm11',
-        userId: 'u10',
-        role: 'engineer',
-        permissions: ['view', 'edit', 'report'],
-      },
-      {
-        id: 'tm12',
-        userId: 'u11',
-        role: 'laborer',
-        permissions: ['view', 'report'],
-      },
     ],
   },
 ];
+
+// =====================
+// TASKS
+// =====================
 
 export const tasks = [
   {
@@ -273,43 +261,11 @@ export const tasks = [
     dueDate: '2024-11-25',
     createdAt: '2024-11-08',
   },
-  {
-    id: 'task8',
-    projectId: 'p1',
-    title: 'Inspect fire extinguishers',
-    description:
-      'Check that all fire extinguishers are charged and accessible.',
-    assigneeId: 'u5',
-    status: 'in-progress',
-    priority: 'high',
-    dueDate: '2025-01-10',
-    createdAt: '2024-12-01',
-  },
-  {
-    id: 'task9',
-    projectId: 'p3',
-    title: 'Update project documentation',
-    description:
-      'Ensure all project documents are up to date and shared with the team.',
-    assigneeId: 'u5',
-    status: 'blocked',
-    priority: 'urgent',
-    dueDate: '2024-12-20',
-    createdAt: '2024-11-15',
-  },
-  {
-    id: 'task10',
-    projectId: 'p3',
-    title: 'Server security audit',
-    description:
-      'Audit all servers for security compliance and vulnerabilities.',
-    assigneeId: 'u5',
-    status: 'blocked',
-    priority: 'urgent',
-    dueDate: '2024-12-30',
-    createdAt: '2024-11-25',
-  },
 ];
+
+// =====================
+// DOCUMENTS
+// =====================
 
 export const documents = [
   {
@@ -374,6 +330,10 @@ export const documents = [
   },
 ];
 
+// =====================
+// MESSAGES
+// =====================
+
 export const messages = [
   {
     id: 'msg1',
@@ -421,6 +381,10 @@ export const messages = [
     timestamp: '2024-11-19T14:15:00',
   },
 ];
+
+// =====================
+// NOTIFICATIONS
+// =====================
 
 export const notifications = [
   {
@@ -475,13 +439,17 @@ export const notifications = [
   },
 ];
 
+// =====================
+// COMPANY PROFILE
+// =====================
+
 export const companyProfile = {
   id: 'c1',
   name: 'BuildPro Construction',
   email: 'contact@buildpro.com',
   phone: '+1 (555) 000-1234',
   address: '500 Construction Ave, Suite 200, New York, NY 10001',
-  logo: 'https://img.freepik.com/free-photo/observation-urban-building-business-steel_1127-2397.jpg?semt=ais_hybrid&w=740&q=80',
+  logo: 'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   description:
     'BuildPro Construction is a leading construction company specializing in commercial and residential projects. With over 15 years of experience, we deliver high-quality construction services on time and within budget.',
   expertise: [
@@ -494,6 +462,10 @@ export const companyProfile = {
   employeeCount: 150,
   completedProjects: 87,
 };
+
+// =====================
+// HELPERS
+// =====================
 
 export function getProjectById(id) {
   return projects.find(p => p.id === id);

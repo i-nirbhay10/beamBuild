@@ -1,9 +1,9 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import DashboardScreen from '../screens/Dashboard/DashboardScreen';
-import ProjectsScreen from '../screens/project/ProjectsScreen';
-import TeamPage from '../screens/team/TeamPage';
-import TasksPage from '../screens/task/TasksPage';
-import SettingsPage from '../screens/SettingsPage';
+import DashboardScreen from '../screens/Dashboard/admin/DashboardScreen';
+import ProjectsScreen from '../screens/Dashboard/admin/ProjectsScreen';
+import TeamPage from '../screens/Dashboard/admin/TeamPage';
+import TasksPage from '../screens/Dashboard/admin/TasksPage';
+import SettingsPage from '../screens/common/SettingsPage';
 import SupervisorDashboard from '../screens/Dashboard/supervisor/SupervisorDashboard';
 import CustomDrawer from './CustomDrawer';
 import MyProjectsScreen from '../screens/Dashboard/supervisor/MyProjectsScreen';
@@ -11,14 +11,20 @@ import TeamListScreen from '../screens/Dashboard/supervisor/TeamListScreen';
 import TaskManagementScreen from '../screens/Dashboard/supervisor/TaskManagementScreen';
 import SupervisorApprovalsScreen from '../screens/Dashboard/supervisor/SupervisorApprovalsScreen';
 import MyDocumentsScreen from '../screens/Dashboard/supervisor/MyDocumentsScreen';
-import ReportsScreen from '../screens/ReportsScreen';
-import ContractorDocumentsScreen from '../screens/Dashboard/ContractorDocumentsScreen';
-import CompanyProfileScreen from '../screens/CompanyProfileScreen';
+import ReportsScreen from '../screens/Dashboard/admin/ReportsScreen';
+import ContractorDocumentsScreen from '../screens/Dashboard/admin/ContractorDocumentsScreen';
+import CompanyProfileScreen from '../screens/common/CompanyProfileScreen';
+import EngineerDashboard from '../screens/Dashboard/engineer/EngineerDashboard';
+import MyProjects from '../screens/Dashboard/engineer/MyProjects';
+import EngioneerTasksScreen from '../screens/Dashboard/engineer/EngineerTasksScreen';
+import EngineerDocumentsScreen from '../screens/Dashboard/engineer/EngineerDocumentsScreen';
+import ReportProgressScreen from '../screens/Dashboard/engineer/ReportProgressScreen';
+import IssuesScreen from '../screens/Dashboard/engineer/IssuesScreen';
 
 const Drawer = createDrawerNavigator();
 
 export default function MainDrawer({role}) {
-  console.log(role, 'rol;e');
+  console.log(role, 'role');
 
   return (
     <Drawer.Navigator
@@ -59,8 +65,12 @@ export default function MainDrawer({role}) {
 
       {role === 'engineer' && (
         <>
-          <Drawer.Screen name="Projects" component={ProjectsScreen} />
-          <Drawer.Screen name="Tasks" component={TasksPage} />
+          <Drawer.Screen name="Dashboard" component={EngineerDashboard} />
+          <Drawer.Screen name="MyProjects" component={MyProjects} />
+          <Drawer.Screen name="MyTasks" component={EngioneerTasksScreen} />
+          <Drawer.Screen name="Documents" component={EngineerDocumentsScreen} />
+          <Drawer.Screen name="Report" component={ReportProgressScreen} />
+          <Drawer.Screen name="Issues" component={IssuesScreen} />
         </>
       )}
 

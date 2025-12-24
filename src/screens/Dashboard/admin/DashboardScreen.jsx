@@ -7,13 +7,13 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import Header from '../../components/layout/Header';
-import StatsCards from '../../components/Dashboard/StatsCards';
-import ProjectOverview from '../../components/Dashboard/ProjectOverview';
-import RecentTasks from '../../components/Dashboard/RecentTasks';
-import TeamActivity from '../../components/Dashboard/TeamActivity';
-import ProjectDetail from '../../components/Dashboard/ProjectDetail';
-import {DataProvider, useData} from '../../context/DataContext';
+import Header from '../../../components/layout/Header';
+import StatsCards from '../../../components/Dashboard/StatsCards';
+import ProjectOverview from '../../../components/Dashboard/ProjectOverview';
+import RecentTasks from '../../../components/Dashboard/RecentTasks';
+import TeamActivity from '../../../components/Dashboard/TeamActivity';
+import ProjectDetail from '../../../components/Dashboard/ProjectDetail';
+import {DataProvider, useData} from '../../../context/DataContext';
 import {useNavigation} from '@react-navigation/native';
 
 export default function DashboardScreen() {

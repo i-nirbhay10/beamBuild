@@ -4,8 +4,8 @@ import {
   ScrollView,
   Text,
   TextInput,
+  Pressable,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 import FAIcon from 'react-native-vector-icons/FontAwesome5';
 import {useAuth} from '../../../context/AuthContext';
@@ -13,11 +13,12 @@ import {teams, documents} from '../../../data/mockData';
 import Header from '../../../components/layout/Header';
 import {DocumentCard} from '../../../components/Document/DocumentCard';
 
-export default function MyDocumentsScreen() {
+export default function EngineerDocumentsScreen() {
   const {user} = useAuth();
   const [search, setSearch] = useState('');
 
-  if (!['supervisor', 'engineer'].includes(user?.role)) {
+  // Only engineers can access this screen
+  if (user?.role !== 'engineer') {
     return (
       <View style={styles.center}>
         <Text style={styles.muted}>Access restricted</Text>
@@ -25,6 +26,7 @@ export default function MyDocumentsScreen() {
     );
   }
 
+  // Get teams the engineer is part of
   const memberTeams = useMemo(
     () => teams.filter(team => team.members.some(m => m.userId === user.id)),
     [user],
@@ -32,6 +34,7 @@ export default function MyDocumentsScreen() {
 
   const assignedProjectIds = memberTeams.map(t => t.projectId);
 
+  // Filter documents by project and search term
   const myDocuments = useMemo(
     () =>
       documents.filter(
@@ -44,10 +47,9 @@ export default function MyDocumentsScreen() {
 
   return (
     <View style={styles.container}>
-      <Header title="Documents" subtitle="Project documents and files" />
+      <Header title="Documents" subtitle="View and upload project files" />
 
       <ScrollView style={styles.scrollContainer}>
-        {/* Search and Upload */}
         <View style={styles.topRow}>
           <TextInput
             placeholder="Search documents..."
@@ -57,18 +59,12 @@ export default function MyDocumentsScreen() {
             style={styles.searchInput}
           />
 
-          {user.role === 'engineer' ||
-            ('supervisor' && (
-              <TouchableOpacity
-                style={styles.uploadBtn}
-                onPress={() => console.log('Upload pressed')}>
-                <FAIcon name="upload" size={14} color="#fff" />
-                <Text style={styles.uploadText}>Upload</Text>
-              </TouchableOpacity>
-            ))}
+          <Pressable style={styles.uploadBtn}>
+            <FAIcon name="upload" size={14} color="#fff" />
+            <Text style={styles.uploadText}>Upload</Text>
+          </Pressable>
         </View>
 
-        {/* Document List */}
         {myDocuments.length === 0 ? (
           <View style={styles.center}>
             <Text style={styles.muted}>No documents found</Text>
@@ -87,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0f172a',
   },
   scrollContainer: {
-    padding: 10,
+    padding: 5,
   },
   topRow: {
     flexDirection: 'row',
@@ -119,8 +115,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   center: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     padding: 30,
   },

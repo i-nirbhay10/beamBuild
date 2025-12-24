@@ -8,11 +8,11 @@ import {
   TextInput,
   FlatList,
 } from 'react-native';
-import TeamMemberCard from '../../components/team/TeamMemberCard';
+import TeamMemberCard from '../../../components/team/TeamMemberCard';
 import Icon from 'react-native-vector-icons/Feather';
-import {users} from '../../data/mockData';
-import {AddMemberDialog} from '../../components/team/AddMemberDialog';
-import Header from '../../components/layout/Header';
+import {users} from '../../../data/mockData';
+import {AddMemberDialog} from '../../../components/team/AddMemberDialog';
+import Header from '../../../components/layout/Header';
 
 export default function TeamPage() {
   const [filter, setFilter] = useState('all');

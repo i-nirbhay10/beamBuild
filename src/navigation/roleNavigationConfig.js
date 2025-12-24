@@ -1,30 +1,84 @@
-import {ROLES} from '../constants/roles';
-
-export const ROLE_NAVIGATION = {
-  [ROLES.OWNER]: [
-    {label: 'Dashboard', route: 'OwnerDashboard', icon: 'home'},
-    {label: 'Projects', route: 'Projects', icon: 'folder'},
-    {label: 'Teams', route: 'Teams', icon: 'users'},
-    {label: 'Reports', route: 'Reports', icon: 'bar-chart'},
-    {label: 'Settings', route: 'Settings', icon: 'settings'},
+export const NAV_ITEMS = {
+  contractor: [
+    {name: 'Dashboard', icon: 'grid', route: 'Dashboard'},
+    {name: 'Projects', icon: 'folder', route: 'Projects'},
+    {name: 'Team', icon: 'users', route: 'Team'},
+    {name: 'Tasks', icon: 'check-square', route: 'Tasks'},
+    {name: 'Documents', icon: 'file-text', route: 'Documents', badge: 2},
+    {name: 'Reports', icon: 'bar-chart-2', route: 'Reports'},
+    // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
   ],
-
-  [ROLES.SUPERVISOR]: [
-    {label: 'Dashboard', route: 'SupervisorDashboard', icon: 'home'},
-    {label: 'Tasks', route: 'Tasks', icon: 'check-square'},
-    {label: 'Team', route: 'Team', icon: 'users'},
-    {label: 'Reports', route: 'Reports', icon: 'bar-chart'},
+  supervisor: [
+    {name: 'Dashboard', icon: 'grid', route: 'SupervisorDashboard'},
+    {name: 'My Projects', icon: 'folder', route: 'MyProjects'},
+    {name: 'Team Management', icon: 'users', route: 'TeamManagement'},
+    {name: 'Task Assignment', icon: 'clipboard', route: 'AssignTasks'},
+    {name: 'Approvals', icon: 'check-circle', route: 'Approvals', badge: 2},
+    {name: 'Documents', icon: 'file-text', route: 'Documents'},
+    // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
   ],
-
-  [ROLES.ENGINEER]: [
-    {label: 'Dashboard', route: 'EngineerDashboard', icon: 'home'},
-    {label: 'Tasks', route: 'Tasks', icon: 'check-square'},
-    {label: 'Documents', route: 'Documents', icon: 'file-text'},
-    {label: 'Reports', route: 'Reports', icon: 'bar-chart'},
+  engineer: [
+    {name: 'Dashboard', icon: 'grid', route: 'Dashboard'},
+    {name: 'My Projects', icon: 'folder', route: 'MyProjects'},
+    {name: 'My Tasks', icon: 'check-square', route: 'MyTasks', badge: 3},
+    {name: 'Technical Docs', icon: 'file-text', route: 'Documents'},
+    {name: 'Report Progress', icon: 'bar-chart-2', route: 'Report'},
+    {name: 'Issues', icon: 'alert-triangle', route: 'Issues'},
+    // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
   ],
-
-  [ROLES.LABORER]: [
-    {label: 'Dashboard', route: 'LaborerDashboard', icon: 'home'},
-    {label: 'My Tasks', route: 'MyTasks', icon: 'check-circle'},
+  laborer: [
+    {name: 'My Tasks', icon: 'check-square', route: 'MyTasks', badge: 2},
+    {name: 'Daily Log', icon: 'clipboard', route: 'DailyLog'},
+    {name: 'Report Issue', icon: 'alert-triangle', route: 'Issues'},
+    {name: 'Safety Info', icon: 'shield', route: 'Safety'},
+    // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
   ],
 };
+
+// const getNavigationItems = role => {
+//   switch (role) {
+//     case 'contractor':
+//       return [
+//         {name: 'Dashboard', icon: 'grid', route: 'Dashboard'},
+//         {name: 'Projects', icon: 'folder', route: 'Projects'},
+//         {name: 'Team', icon: 'users', route: 'Team'},
+//         {name: 'Tasks', icon: 'check-square', route: 'Tasks'},
+//         {name: 'Documents', icon: 'file-text', route: 'Documents'},
+//         {name: 'Reports', icon: 'bar-chart-2', route: 'Reports'},
+//         // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
+//       ];
+
+//     case 'supervisor':
+//       return [
+//         {name: 'Dashboard', icon: 'grid', route: 'SupervisorDashboard'},
+//         {name: 'My Projects', icon: 'folder', route: 'MyProjects'},
+//         {name: 'Team Management', icon: 'users', route: 'TeamManagement'},
+//         {name: 'Task Assignment', icon: 'clipboard', route: 'AssignTasks'},
+//         {name: 'Approvals', icon: 'check-circle', route: 'Approvals', badge: 2},
+//         {name: 'Documents', icon: 'file-text', route: 'Documents'},
+//         // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
+//       ];
+
+//     case 'engineer':
+//       return [
+//         {name: 'My Projects', icon: 'folder', route: 'MyProjects'},
+//         {name: 'My Tasks', icon: 'check-square', route: 'MyTasks', badge: 3},
+//         {name: 'Technical Docs', icon: 'file-text', route: 'Documents'},
+//         {name: 'Report Progress', icon: 'bar-chart-2', route: 'Report'},
+//         {name: 'Issues', icon: 'alert-triangle', route: 'Issues'},
+//         // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
+//       ];
+
+//     case 'laborer':
+//       return [
+//         {name: 'My Tasks', icon: 'check-square', route: 'MyTasks', badge: 2},
+//         {name: 'Daily Log', icon: 'clipboard', route: 'DailyLog'},
+//         {name: 'Report Issue', icon: 'alert-triangle', route: 'Issues'},
+//         {name: 'Safety Info', icon: 'shield', route: 'Safety'},
+//         // {name: 'Messages', icon: 'message-square', route: 'Messages', badge: 3},
+//       ];
+
+//     default:
+//       return [];
+//   }
+// };

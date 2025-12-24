@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {useAuth} from '../context/AuthContext';
+import {useAuth} from '../../context/AuthContext';
 import {
   companyProfile as initialProfile,
   projects,
   users,
-} from '../data/mockData';
-import Header from '../components/layout/Header';
+} from '../../data/mockData';
+import Header from '../../components/layout/Header';
 
 /* -----------------------------
    Role + Owner Guard
@@ -55,7 +55,6 @@ export default function CompanyProfileScreen() {
   return (
     <View style={{flex: 1}}>
       <Header title="Company Profile" subtitle={profile.name} />
-
       <ScrollView contentContainerStyle={styles.container}>
         {/* Edit Actions */}
         {user?.role === 'contractor' && (
@@ -230,12 +229,12 @@ function Stat({label, value}) {
    Styles
 ------------------------------ */
 const styles = StyleSheet.create({
-  container: {padding: 12, paddingBottom: 100},
+  container: {padding: 5, paddingBottom: 10, backgroundColor: '#382f2fff'},
   card: {
     backgroundColor: '#fff',
     borderRadius: 14,
     padding: 16,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   logo: {
     width: 90,

@@ -14,7 +14,7 @@ import {
   getTeamByProjectId,
   getTasksByProjectId,
   getUserById,
-} from '../../data/mockData';
+} from '../../../data/mockData';
 
 export default function ProjectDetailScreen() {
   const route = useRoute();
@@ -26,7 +26,7 @@ export default function ProjectDetailScreen() {
   if (!project) {
     return (
       <View style={styles.center}>
-        <Text>Project not found</Text>
+        <Text style={styles.muted}>Project not found</Text>
       </View>
     );
   }
@@ -43,7 +43,7 @@ export default function ProjectDetailScreen() {
       <TouchableOpacity
         style={styles.backBtn}
         onPress={() => navigation.goBack()}>
-        <Icon name="arrow-left" size={20} />
+        <Icon name="arrow-left" size={20} color="#333" />
         <Text style={styles.backText}>Back to Projects</Text>
       </TouchableOpacity>
 
@@ -73,7 +73,7 @@ export default function ProjectDetailScreen() {
 
         <View style={styles.cardButtonsRow}>
           <TouchableOpacity style={styles.btnOutline}>
-            <Icon name="file-text" size={16} />
+            <Icon name="file-text" size={16} color="#70510dff" />
             <Text style={styles.btnOutlineText}>Documents</Text>
           </TouchableOpacity>
 
@@ -132,14 +132,13 @@ export default function ProjectDetailScreen() {
 
         {team?.members?.map(member => {
           const user = getUserById(member.userId);
-
-          if (!user) return null; // ✅ prevent crash
+          if (!user) return null;
 
           return (
             <View key={member.id} style={styles.teamRow}>
               <Image
                 source={
-                  user?.avatar ? {uri: user.avatar} : ' ' // require('../assets/avatar-placeholder.png')
+                  user?.avatar ? {uri: user.avatar} : '' //require('../../../assets/avatar-placeholder.png')
                 }
                 style={styles.avatar}
               />
@@ -151,8 +150,8 @@ export default function ProjectDetailScreen() {
                 <Text style={styles.teamRole}>{member.role}</Text>
               </View>
 
-              <View style={styles.badgeSmall}>
-                <Text>{member.role}</Text>
+              <View style={[styles.badgeSmall, getStatusColor(member.role)]}>
+                <Text style={styles.badgeTextSmall}>{member.role}</Text>
               </View>
             </View>
           );
@@ -164,7 +163,7 @@ export default function ProjectDetailScreen() {
         <View style={styles.rowBetween}>
           <Text style={styles.sectionTitle}>Recent Tasks</Text>
           <TouchableOpacity>
-            <Text style={{color: '#70510dff'}}>View All</Text>
+            <Text style={styles.linkText}>View All</Text>
           </TouchableOpacity>
         </View>
 
@@ -175,7 +174,7 @@ export default function ProjectDetailScreen() {
             <View key={task.id} style={styles.taskRow}>
               <Image
                 source={
-                  assignee.avatar ? {uri: assignee.avatar} : ' ' // require('../assets/avatar-placeholder.png')
+                  assignee?.avatar ? {uri: assignee.avatar} : '' //require('../../../assets/avatar-placeholder.png')
                 }
                 style={styles.avatarSmall}
               />
@@ -200,10 +199,9 @@ export default function ProjectDetailScreen() {
   );
 }
 
-/* Helpers for date formatting */
+/* Helpers */
 const formatDate = date =>
   new Date(date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-
 const formatDateFull = date =>
   new Date(date).toLocaleDateString('en-US', {
     month: 'short',
@@ -211,14 +209,13 @@ const formatDateFull = date =>
     year: 'numeric',
   });
 
-/* Reusable Box Component */
 function StatBox({icon, label, value}) {
   return (
     <View style={styles.statCard}>
       <View style={styles.statIcon}>
-        <Icon name={icon} size={20} color="#611ffcff" />
+        <Icon name={icon} size={20} color="#70510dff" />
       </View>
-      <View>
+      <View style={{flex: 1}}>
         <Text style={styles.statLabel}>{label}</Text>
         <Text style={styles.statValue}>{value}</Text>
       </View>
@@ -226,13 +223,12 @@ function StatBox({icon, label, value}) {
   );
 }
 
-/* Progress Bars */
 function ProgressBar({label, value, danger}) {
   return (
     <View style={{marginBottom: 14}}>
       <View style={styles.rowBetween}>
         <Text style={styles.progressLabel}>{label}</Text>
-        <Text style={[styles.progressValue, danger && {color: 'red'}]}>
+        <Text style={[styles.progressValue, danger && {color: '#ff4d4f'}]}>
           {value}%
         </Text>
       </View>
@@ -241,7 +237,7 @@ function ProgressBar({label, value, danger}) {
           style={[
             styles.progressFill,
             {width: `${value}%`},
-            danger && {backgroundColor: 'red'},
+            danger && {backgroundColor: '#ff4d4f'},
           ]}
         />
       </View>
@@ -249,38 +245,47 @@ function ProgressBar({label, value, danger}) {
   );
 }
 
-/* Colors & Styles */
+/* Status Colors */
 function getStatusColor(status) {
-  return {
-    planning: styles.statusPlanning,
-    'in-progress': styles.statusActive,
-    'on-hold': styles.statusHold,
-    completed: styles.statusCompleted,
-  }[status];
+  return (
+    {
+      planning: styles.statusPlanning,
+      'in-progress': styles.statusActive,
+      'on-hold': styles.statusHold,
+      completed: styles.statusCompleted,
+      supervisor: styles.statusActive,
+      engineer: styles.statusPlanning,
+      'project-manager': styles.statusHold,
+      blocked: styles.statusBlocked,
+    }[status] || styles.statusDefault
+  );
 }
 
 function getTaskColor(status) {
-  return {
-    pending: styles.statusPlanning,
-    'in-progress': styles.statusActive,
-    completed: styles.statusCompleted,
-    blocked: styles.statusBlocked,
-  }[status];
+  return (
+    {
+      pending: styles.statusPlanning,
+      'in-progress': styles.statusActive,
+      completed: styles.statusCompleted,
+      blocked: styles.statusBlocked,
+    }[status] || styles.statusDefault
+  );
 }
 
 /* Styles */
 const styles = StyleSheet.create({
-  container: {flex: 1, padding: 5, backgroundColor: '#f8f9fc'},
-  center: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+  container: {flex: 1, padding: 5, backgroundColor: '#0a0f1e'}, // darker background
+  center: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  muted: {color: '#94a3b8', fontSize: 14},
 
   /* Header */
   backBtn: {flexDirection: 'row', alignItems: 'center', marginBottom: 12},
-  backText: {marginLeft: 6, fontSize: 15},
-  title: {fontSize: 24, fontWeight: '700'},
-  subtitle: {color: '#777', marginBottom: 16},
+  backText: {marginLeft: 6, fontSize: 15, color: '#94a3b8'},
+  title: {fontSize: 22, fontWeight: '700', color: '#f8fafc', marginBottom: 2},
+  subtitle: {color: '#cbd5e1', fontSize: 14, marginBottom: 12},
 
   /* Badges */
-  tagRow: {flexDirection: 'row', gap: 8, marginBottom: 12},
+  tagRow: {flexDirection: 'row', gap: 8, marginBottom: 12, flexWrap: 'wrap'},
   badge: {
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -289,118 +294,121 @@ const styles = StyleSheet.create({
     gap: 6,
     alignItems: 'center',
   },
-  badgeText: {fontSize: 13, fontWeight: '600'},
-  badgeDanger: {backgroundColor: '#ff4d4f20'},
-
-  statusPlanning: {backgroundColor: '#ffeccc'},
-  statusActive: {backgroundColor: '#d9e8ff'},
-  statusHold: {backgroundColor: '#ffe1e1'},
-  statusCompleted: {backgroundColor: '#d1f8d1'},
-  statusBlocked: {backgroundColor: '#ffd6d6'},
+  badgeText: {fontSize: 12, fontWeight: '600', color: '#0a0f1e'},
+  badgeDanger: {backgroundColor: '#ff4d4f33'}, // red alert
+  statusPlanning: {backgroundColor: '#ffe4b5'}, // amber
+  statusActive: {backgroundColor: '#38bdf8'}, // teal blue
+  statusHold: {backgroundColor: '#fca5a5'}, // soft red
+  statusCompleted: {backgroundColor: '#6ee7b7'}, // green
+  statusBlocked: {backgroundColor: '#f87171'}, // stronger red
+  statusDefault: {backgroundColor: '#64748b33'}, // gray transparent
 
   /* Cards */
   card: {
-    backgroundColor: '#fff',
-    padding: 16,
+    backgroundColor: '#1e293b',
+    padding: 14,
     borderRadius: 12,
-    marginBottom: 20,
-    elevation: 1,
+    marginBottom: 16,
   },
-  cardText: {fontSize: 14, color: '#555', marginBottom: 12},
+  cardText: {fontSize: 14, color: '#e2e8f0', marginBottom: 12},
 
   /* Card Buttons */
   cardButtonsRow: {flexDirection: 'row', gap: 10},
   btnOutline: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#38bdf8',
     padding: 8,
     borderRadius: 8,
     gap: 6,
+    alignItems: 'center',
   },
-  btnOutlineText: {fontWeight: '500'},
+  btnOutlineText: {fontWeight: '500', color: '#38bdf8'},
   btnPrimary: {
-    backgroundColor: '#70510dff',
+    backgroundColor: '#f59e0b', // amber
     padding: 8,
     borderRadius: 8,
     flex: 1,
   },
-  btnPrimaryText: {color: '#fff', textAlign: 'center'},
+  btnPrimaryText: {color: '#fff', textAlign: 'center', fontWeight: '600'},
 
   /* Stats */
   statsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 5,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginBottom: 16,
+    gap: 10,
   },
   statCard: {
     width: '48%',
-    backgroundColor: '#fff',
-    padding: 14,
+    backgroundColor: '#1e293b',
+    padding: 12,
     borderRadius: 10,
-    elevation: 1,
     flexDirection: 'row',
     gap: 10,
-    overflow: 'hidden',
+    alignItems: 'center',
   },
-  statIcon: {
-    backgroundColor: '#e5efff',
-    padding: 8,
-    borderRadius: 8,
-  },
-  statLabel: {color: '#777'},
-  statValue: {fontSize: 12, fontWeight: '400', marginTop: 2},
+  statIcon: {backgroundColor: '#38bdf8', padding: 8, borderRadius: 8},
+  statLabel: {color: '#cbd5e1', fontSize: 12},
+  statValue: {fontSize: 13, fontWeight: '600', color: '#f8fafc', marginTop: 2},
 
   /* Progress */
-  sectionTitle: {fontSize: 18, fontWeight: '600', marginBottom: 12},
-  rowBetween: {flexDirection: 'row', justifyContent: 'space-between'},
-  progressLabel: {color: '#777'},
-  progressValue: {fontWeight: '700'},
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
+    color: '#f8fafc',
+  },
+  rowBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  progressLabel: {color: '#cbd5e1', fontSize: 13},
+  progressValue: {fontWeight: '700', color: '#f8fafc'},
   progressTrack: {
     height: 8,
-    backgroundColor: '#eee',
+    backgroundColor: '#334155',
     borderRadius: 8,
     marginTop: 6,
   },
-  progressFill: {
-    height: 8,
-    backgroundColor: '#70510dff',
-    borderRadius: 8,
-  },
+  progressFill: {height: 8, backgroundColor: '#38bdf8', borderRadius: 8},
 
   /* Team */
   teamRow: {
     flexDirection: 'row',
-    paddingVertical: 10,
     alignItems: 'center',
+    paddingVertical: 8,
     gap: 12,
   },
-  avatar: {width: 40, height: 40, borderRadius: 20, backgroundColor: '#ddd'},
-  teamName: {fontWeight: '700'},
-  teamRole: {color: '#777', fontSize: 13},
+  avatar: {width: 40, height: 40, borderRadius: 20, backgroundColor: '#64748b'},
+  teamName: {fontWeight: '700', color: '#f8fafc', fontSize: 14},
+  teamRole: {color: '#cbd5e1', fontSize: 12},
   badgeSmall: {
-    backgroundColor: '#eee',
+    backgroundColor: '#334155',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  badgeTextSmall: {fontSize: 11, fontWeight: '600', color: '#f8fafc'},
 
   /* Tasks */
   taskRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    paddingVertical: 10,
+    paddingVertical: 8,
   },
   avatarSmall: {
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: '#ddd',
+    backgroundColor: '#64748b',
   },
-  taskTitle: {fontWeight: '600'},
-  taskDue: {fontSize: 12, color: '#777'},
-  badgeTextSmall: {fontSize: 12, fontWeight: '600'},
+  taskTitle: {fontWeight: '600', color: '#f8fafc', fontSize: 14},
+  taskDue: {fontSize: 11, color: '#cbd5e1'},
+  linkText: {color: '#f59e0b', fontWeight: '600'}, // amber links
 });

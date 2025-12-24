@@ -8,10 +8,10 @@ import {
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {CreateProjectModal} from '../../components/Project/CreateProjectModal';
-import {ProjectCard} from '../../components/Project/ProjectCard';
-import {projects} from '../../data/mockData';
-import Header from '../../components/layout/Header';
+import {CreateProjectModal} from '../../../components/Project/CreateProjectModal';
+import {ProjectCard} from '../../../components/Project/ProjectCard';
+import {projects} from '../../../data/mockData';
+import Header from '../../../components/layout/Header';
 
 export default function ProjectsScreen() {
   const [activeTab, setActiveTab] = useState('all');
@@ -96,9 +96,6 @@ export default function ProjectsScreen() {
       <FlatList
         data={getProjectsToShow()}
         keyExtractor={item => item.id.toString()}
-        // numColumns={2}
-        // columnWrapperStyle={{gap: 12}}
-        // contentContainerStyle={{padding: 12}}
         renderItem={({item}) => <ProjectCard project={item} />}
         ListEmptyComponent={
           <View style={{padding: 40, alignItems: 'center'}}>
@@ -147,7 +144,8 @@ const styles = StyleSheet.create({
   newBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 12,
+    marginHorizontal: 5,
+    marginVertical: 12,
     justifyContent: 'space-between',
     backgroundColor: '#000',
     paddingVertical: 8,

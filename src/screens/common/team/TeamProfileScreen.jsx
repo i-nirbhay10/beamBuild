@@ -8,8 +8,8 @@ import {
   getUserById,
   getTasksByAssigneeId,
   getProjectById,
-} from '../../data/mockData';
-import BackButton from '../../components/layout/BackButton';
+} from '../../../data/mockData';
+import BackButton from '../../../components/layout/BackButton';
 
 /* ---------- Colors ---------- */
 

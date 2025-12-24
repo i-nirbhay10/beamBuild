@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Header from '../../components/layout/Header';
-import {useAuth} from '../../context/AuthContext';
-import {documents, projects} from '../../data/mockData';
+import Header from '../../../components/layout/Header';
+import {useAuth} from '../../../context/AuthContext';
+import {documents, projects} from '../../../data/mockData';
 
 /* -----------------------------
    Role Guard (dynamic)

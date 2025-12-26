@@ -6,6 +6,7 @@ import {
   FlatList,
   RefreshControl,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -179,18 +180,23 @@ export default function EngineerTasksScreen() {
       <Header title="My Tasks" subtitle="Manage your assigned tasks" />
 
       {/* Tabs */}
-      <View style={styles.tabsRow}>
-        {tabs.map(tab => (
-          <TouchableOpacity
-            key={tab}
-            style={[styles.tabButton, filter === tab && styles.activeTab]}
-            onPress={() => setFilter(tab)}>
-            <Text
-              style={[styles.tabText, filter === tab && styles.activeTabText]}>
-              {tab.replace('-', ' ')} ({taskCounts[tab]})
-            </Text>
-          </TouchableOpacity>
-        ))}
+      <View>
+        <ScrollView horizontal style={styles.tabsRow}>
+          {tabs.map(tab => (
+            <TouchableOpacity
+              key={tab}
+              style={[styles.tabButton, filter === tab && styles.activeTab]}
+              onPress={() => setFilter(tab)}>
+              <Text
+                style={[
+                  styles.tabText,
+                  filter === tab && styles.activeTabText,
+                ]}>
+                {tab.replace('-', ' ')} ({taskCounts[tab]})
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
       {/* List */}
@@ -229,7 +235,7 @@ const styles = StyleSheet.create({
   /* ===== Tabs ===== */
   tabsRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     marginHorizontal: 12,
     marginTop: 12,
     marginBottom: 4,

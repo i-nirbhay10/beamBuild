@@ -107,7 +107,7 @@ export default function ContractorDocumentsScreen() {
   };
 
   return (
-    <RoleGuard allowedRoles={['contractor']}>
+    <RoleGuard allowedRoles={['contractor', 'project-manager']}>
       <View style={{flex: 1}}>
         <Header title="Documents" subtitle={`Welcome back, ${user?.name}`} />
 

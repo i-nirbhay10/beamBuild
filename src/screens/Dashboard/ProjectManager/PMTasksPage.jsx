@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -9,88 +9,79 @@ import {
   SectionList,
   Dimensions,
 } from 'react-native';
-
 import Icon from 'react-native-vector-icons/Feather';
-import {tasks, projects} from '../../../data/mockData';
+
+import {projects, tasks as mockTasks, users} from '../../../data/mockData';
+import {useAuth} from '../../../context/AuthContext';
+
 import TaskCard from '../../../components/task/TaskCard';
 import Header from '../../../components/layout/Header';
 import NewTaskBottomSheet from '../../../components/task/NewTaskModal';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default function TasksPage() {
+export default function PMTasksPage() {
+  const {user, teamMemberInfo} = useAuth();
+
   const [projectFilter, setProjectFilter] = useState('all');
   const [newTaskVisible, setNewTaskVisible] = useState(false);
+  const [taskList, setTaskList] = useState(mockTasks);
 
-  useEffect(() => {
-    console.log('BottomSheet :', newTaskVisible);
-  }, [newTaskVisible]);
+  /* ------------------ ROLE CHECK ------------------ */
+  const isPM =
+    user?.role === 'project-manager' || teamMemberInfo?.role === 'supervisor';
 
+  /* ------------------ VISIBLE TASKS ------------------ */
+  const visibleTasks = useMemo(() => {
+    if (!user) return [];
+
+    if (isPM) {
+      return taskList;
+    }
+
+    return taskList.filter(t => t.assigneeId === user.id);
+  }, [taskList, user, isPM]);
+
+  /* ------------------ PROJECT FILTER ------------------ */
   const filteredTasks =
     projectFilter === 'all'
-      ? tasks
-      : tasks.filter(t => t.projectId === projectFilter);
+      ? visibleTasks
+      : visibleTasks.filter(t => t.projectId === projectFilter);
 
-  const statusTabs = ['all', 'pending', 'in-progress', 'completed', 'blocked'];
+  /* ------------------ CREATE TASK (PM) ------------------ */
+  const handleCreateTask = data => {
+    const newTask = {
+      id: `task_${Date.now()}`,
+      title: data.title,
+      description: data.description,
+      projectId: data.projectId,
+      assigneeId: data.assigneeId,
+      priority: data.priority || 'medium',
+      status: 'pending',
+      createdAt: new Date().toISOString().split('T')[0],
+      dueDate: data.dueDate,
+    };
 
-  const stats = [
-    {
-      title: 'Pending',
-      value: filteredTasks.filter(t => t.status === 'pending').length,
-      icon: 'clock',
-      color: '#f59e0b',
-    },
-    {
-      title: 'In Progress',
-      value: filteredTasks.filter(t => t.status === 'in-progress').length,
-      icon: 'loader',
-      color: '#3b82f6',
-    },
-    {
-      title: 'Completed',
-      value: filteredTasks.filter(t => t.status === 'completed').length,
-      icon: 'check-circle',
-      color: '#10b981',
-    },
-    {
-      title: 'Blocked',
-      value: filteredTasks.filter(t => t.status === 'blocked').length,
-      icon: 'alert-circle',
-      color: '#ef4444',
-    },
-  ];
+    setTaskList(prev => [newTask, ...prev]);
+    setNewTaskVisible(false);
+  };
 
-  const sections = statusTabs.map(status => {
-    const tasksByStatus =
-      status === 'all'
-        ? filteredTasks
-        : filteredTasks.filter(t => t.status === status);
+  /* ------------------ STATUS SECTIONS ------------------ */
+  const statusTabs = ['pending', 'in-progress', 'completed', 'blocked'];
 
-    return {title: status, data: tasksByStatus};
-  });
+  const sections = statusTabs.map(status => ({
+    title: status,
+    data: filteredTasks.filter(t => t.status === status),
+  }));
 
   return (
     <View style={styles.container}>
-      <Header title="Tasks" subtitle="Manage your construction projects" />
+      <Header
+        title="Tasks"
+        subtitle={isPM ? 'Project tasks overview' : 'Your assigned tasks'}
+      />
 
-      {/* Stats */}
-      <View style={styles.statsRow}>
-        {stats.map(stat => (
-          <View key={stat.title} style={styles.statCard}>
-            <View
-              style={[styles.statIcon, {backgroundColor: stat.color + '22'}]}>
-              <Icon name={stat.icon} size={20} color={stat.color} />
-            </View>
-
-            <View style={styles.statInfo}>
-              <Text style={styles.statValue}>{stat.value}</Text>
-              <Text style={styles.statTitle}>{stat.title}</Text>
-            </View>
-          </View>
-        ))}
-      </View>
-
-      {/* Project Filters */}
+      {/* Filters */}
       <View style={styles.tabRow}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <TouchableOpacity
@@ -104,7 +95,7 @@ export default function TasksPage() {
                 styles.filterText,
                 projectFilter === 'all' && styles.filterTextActive,
               ]}>
-              All ({filteredTasks.length})
+              All
             </Text>
           </TouchableOpacity>
 
@@ -128,34 +119,40 @@ export default function TasksPage() {
         </ScrollView>
       </View>
 
-      {/* Search + New Task */}
+      {/* Search + Create */}
       <View style={styles.searchRow}>
         <TextInput placeholder="Search tasks..." style={styles.searchInput} />
 
-        <TouchableOpacity
-          style={styles.addBtn}
-          onPress={() => setNewTaskVisible(!newTaskVisible)}>
-          <Icon name="plus" size={16} color="#fff" />
-          <Text style={styles.addBtnText}>New</Text>
-        </TouchableOpacity>
+        {isPM && (
+          <TouchableOpacity
+            style={styles.addBtn}
+            onPress={() => setNewTaskVisible(true)}>
+            <Icon name="plus" size={16} color="#fff" />
+            <Text style={styles.addBtnText}>New</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
-      {/* Tasks List */}
+      {/* Tasks */}
       <SectionList
-        showsVerticalScrollIndicator={false}
         sections={sections}
         keyExtractor={item => item.id}
         renderItem={({item}) => <TaskCard task={item} />}
-        renderSectionHeader={({section: {title, data}}) => (
+        renderSectionHeader={({section}) => (
           <Text style={styles.tabTitle}>
-            {title.charAt(0).toUpperCase() + title.slice(1)} ({data.length})
+            {section.title.toUpperCase()} ({section.data.length})
           </Text>
         )}
-        contentContainerStyle={{paddingHorizontal: 5, paddingBottom: 20}}
+        contentContainerStyle={{paddingBottom: 30}}
       />
+
+      {/* Create Task Modal */}
       <NewTaskBottomSheet
         isVisible={newTaskVisible}
         onClose={() => setNewTaskVisible(false)}
+        users={users}
+        projects={projects}
+        onCreate={handleCreateTask}
       />
     </View>
   );

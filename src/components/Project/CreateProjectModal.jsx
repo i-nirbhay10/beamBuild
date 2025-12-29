@@ -13,11 +13,11 @@ import {
    Project Status Options with Colors
 ------------------------------ */
 const PROJECT_STATUSES = [
-  {label: 'Planning', color: '#F59E0B'}, // Amber
-  {label: 'Planning Complete', color: '#10B981'}, // Green
-  {label: 'In Progress', color: '#3B82F6'}, // Blue
-  {label: 'On Hold', color: '#F97316'}, // Orange
-  {label: 'Completed', color: '#6366F1'}, // Indigo
+  {label: 'Planning', color: '#F59E0B'},
+  {label: 'Planning Complete', color: '#10B981'},
+  {label: 'In Progress', color: '#3B82F6'},
+  {label: 'On Hold', color: '#F97316'},
+  {label: 'Completed', color: '#6366F1'},
 ];
 
 /* -----------------------------
@@ -37,18 +37,27 @@ export function CreateProjectModal({visible, onClose}) {
             showsVerticalScrollIndicator={false}>
             {/* Project Name */}
             <Text style={styles.label}>Project Name</Text>
-            <TextInput style={styles.input} placeholder="Enter project name" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter project name"
+              placeholderTextColor="#6B7280"
+            />
 
             {/* Location */}
             <Text style={styles.label}>Location</Text>
-            <TextInput style={styles.input} placeholder="Enter location" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter location"
+              placeholderTextColor="#6B7280"
+            />
 
             {/* Description */}
             <Text style={styles.label}>Description</Text>
             <TextInput
-              style={[styles.input, {height: 80}]}
+              style={[styles.input, {height: 40}]}
               multiline
               placeholder="Brief project description"
+              placeholderTextColor="#6B7280"
             />
 
             {/* Status */}
@@ -62,12 +71,14 @@ export function CreateProjectModal({visible, onClose}) {
                     onPress={() => setStatus(s.label)}
                     style={[
                       styles.statusChip,
-                      {backgroundColor: isActive ? s.color : '#f2f4f7'},
+                      {
+                        backgroundColor: isActive ? s.color : '#1F2937',
+                      },
                     ]}>
                     <Text
                       style={[
                         styles.statusText,
-                        {color: isActive ? '#fff' : '#444'},
+                        {color: isActive ? '#fff' : '#D1D5DB'},
                       ]}>
                       {s.label}
                     </Text>
@@ -80,11 +91,19 @@ export function CreateProjectModal({visible, onClose}) {
             <View style={styles.row}>
               <View style={{flex: 1}}>
                 <Text style={styles.label}>Start Date</Text>
-                <TextInput style={styles.input} placeholder="YYYY-MM-DD" />
+                <TextInput
+                  style={styles.input}
+                  placeholder="YYYY-MM-DD"
+                  placeholderTextColor="#6B7280"
+                />
               </View>
               <View style={{flex: 1}}>
                 <Text style={styles.label}>End Date</Text>
-                <TextInput style={styles.input} placeholder="YYYY-MM-DD" />
+                <TextInput
+                  style={styles.input}
+                  placeholder="YYYY-MM-DD"
+                  placeholderTextColor="#6B7280"
+                />
               </View>
             </View>
 
@@ -93,6 +112,7 @@ export function CreateProjectModal({visible, onClose}) {
             <TextInput
               style={styles.input}
               placeholder="Estimated budget"
+              placeholderTextColor="#6B7280"
               keyboardType="numeric"
             />
           </ScrollView>
@@ -119,35 +139,37 @@ export function CreateProjectModal({visible, onClose}) {
 }
 
 /* -----------------------------
-   Styles
+   Dark Theme Styles
 ------------------------------ */
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: '#00000066',
+    backgroundColor: '#000000AA',
     justifyContent: 'center',
     padding: 20,
   },
   modal: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: '#111827',
+    borderRadius: 14,
     padding: 16,
     maxHeight: '90%',
   },
   title: {
     fontSize: 18,
     fontWeight: '700',
+    color: '#F9FAFB',
   },
   label: {
     marginTop: 12,
-    color: '#444',
+    color: '#9CA3AF',
     fontSize: 13,
   },
   input: {
-    backgroundColor: '#f2f4f7',
+    backgroundColor: '#1F2937',
     padding: 10,
     borderRadius: 8,
     marginTop: 4,
+    color: '#F9FAFB',
   },
   row: {
     flexDirection: 'row',
@@ -166,7 +188,6 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 12,
-    color: '#444',
   },
   footer: {
     flexDirection: 'row',
@@ -179,16 +200,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   cancelText: {
-    color: '#777',
+    color: '#9CA3AF',
   },
   createBtn: {
-    backgroundColor: '#6F1FFC',
+    backgroundColor: '#6366F1',
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
   },
   createText: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontWeight: '600',
   },
 });

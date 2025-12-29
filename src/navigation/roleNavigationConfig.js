@@ -20,7 +20,7 @@ export const NAV_ITEMS = {
   ],
 
   supervisor: [
-    {name: 'Dashboard', icon: 'grid', route: 'SupervisorDashboard'},
+    {name: 'Dashboard', icon: 'grid', route: 'Dashboard'},
     {name: 'My Projects', icon: 'folder', route: 'MyProjects'},
     {name: 'Team Management', icon: 'users', route: 'TeamManagement'},
     {name: 'Task Assignment', icon: 'clipboard', route: 'AssignTasks'},

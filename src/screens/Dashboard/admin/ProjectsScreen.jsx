@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {
   View,
   Text,
@@ -8,98 +8,76 @@ import {
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+
+import Header from '../../../components/layout/Header';
 import {CreateProjectModal} from '../../../components/Project/CreateProjectModal';
 import {ProjectCard} from '../../../components/Project/ProjectCard';
 import {projects} from '../../../data/mockData';
-import Header from '../../../components/layout/Header';
+
+const TABS = [
+  {key: 'all', label: 'All'},
+  {key: 'active', label: 'Active', status: 'in-progress'},
+  {key: 'planning', label: 'Planning', status: 'planning'},
+  {key: 'completed', label: 'Completed', status: 'completed'},
+];
 
 export default function ProjectsScreen() {
   const [activeTab, setActiveTab] = useState('all');
   const [modalVisible, setModalVisible] = useState(false);
 
-  const activeProjects = projects.filter(p => p.status === 'in-progress');
-  const planningProjects = projects.filter(p => p.status === 'planning');
-  const completedProjects = projects.filter(p => p.status === 'completed');
-
-  const getProjectsToShow = () => {
-    if (activeTab === 'active') return activeProjects;
-    if (activeTab === 'planning') return planningProjects;
-    if (activeTab === 'completed') return completedProjects;
-    return projects;
-  };
+  const filteredProjects = useMemo(() => {
+    const tab = TABS.find(t => t.key === activeTab);
+    if (!tab?.status) return projects;
+    return projects.filter(p => p.status === tab.status);
+  }, [activeTab]);
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      <Header title="Projects" subtitle="Manage your construction projects" />
 
-      <Header title="Projects" subtitle={`Manage your construction projects`} />
       <TouchableOpacity
         style={styles.newBtn}
         onPress={() => setModalVisible(true)}>
         <Icon name="plus" size={16} color="#fff" />
         <Text style={styles.newBtnText}>New Project</Text>
       </TouchableOpacity>
-      {/* Tabs + New Project Button */}
-      <View style={styles.tabRow}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity
-            style={[styles.tab, activeTab === 'all' && styles.activeTab]}
-            onPress={() => setActiveTab('all')}>
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === 'all' && styles.activeTabText,
-              ]}>
-              All ({projects.length})
-            </Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.tab, activeTab === 'active' && styles.activeTab]}
-            onPress={() => setActiveTab('active')}>
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === 'active' && styles.activeTabText,
-              ]}>
-              Active ({activeProjects.length})
-            </Text>
-          </TouchableOpacity>
+      {/* Tabs */}
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.tabRow}>
+          {TABS.map(tab => {
+            const isActive = activeTab === tab.key;
+            const count =
+              tab.key === 'all'
+                ? projects.length
+                : projects.filter(p => p.status === tab.status).length;
 
-          <TouchableOpacity
-            style={[styles.tab, activeTab === 'planning' && styles.activeTab]}
-            onPress={() => setActiveTab('planning')}>
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === 'planning' && styles.activeTabText,
-              ]}>
-              Planning ({planningProjects.length})
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.tab, activeTab === 'completed' && styles.activeTab]}
-            onPress={() => setActiveTab('completed')}>
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === 'completed' && styles.activeTabText,
-              ]}>
-              Completed ({completedProjects.length})
-            </Text>
-          </TouchableOpacity>
+            return (
+              <TouchableOpacity
+                key={tab.key}
+                style={[styles.tab, isActive && styles.activeTab]}
+                onPress={() => setActiveTab(tab.key)}>
+                <Text
+                  style={[styles.tabText, isActive && styles.activeTabText]}>
+                  {tab.label} ({count})
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </ScrollView>
       </View>
 
-      {/* Project List */}
+      {/* List */}
       <FlatList
-        data={getProjectsToShow()}
+        data={filteredProjects}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => <ProjectCard project={item} />}
         ListEmptyComponent={
-          <View style={{padding: 40, alignItems: 'center'}}>
-            <Text style={{color: '#888'}}>No projects in this category.</Text>
+          <View style={styles.empty}>
+            <Text style={styles.emptyText}>No projects in this category.</Text>
           </View>
         }
       />
@@ -113,14 +91,13 @@ export default function ProjectsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#f8f9fc'},
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fc',
+  },
   tabRow: {
-    marginVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
     paddingHorizontal: 5,
     paddingBottom: 5,
-    justifyContent: 'space-between',
   },
   tab: {
     backgroundColor: '#f0f2f5',
@@ -137,16 +114,14 @@ const styles = StyleSheet.create({
     color: '#6b7280',
   },
   activeTabText: {
-    fontSize: 14,
-    color: '#ffffff',
+    color: '#fff',
     fontWeight: '500',
   },
   newBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: 5,
-    marginVertical: 12,
-    justifyContent: 'space-between',
+    margin: 5,
+    marginVertical: 8,
     backgroundColor: '#000',
     paddingVertical: 8,
     borderRadius: 8,
@@ -156,5 +131,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginLeft: 6,
     fontWeight: '600',
+  },
+  empty: {
+    padding: 40,
+    alignItems: 'center',
+  },
+  emptyText: {
+    color: '#888',
   },
 });

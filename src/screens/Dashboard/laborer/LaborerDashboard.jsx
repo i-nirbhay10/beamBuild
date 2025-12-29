@@ -174,7 +174,10 @@ const LaborerDashboard = ({navigation}) => {
             <Text style={styles.actionText}>Daily Log</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionCard} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.actionCard}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('Issues')}>
             <Icon name="alert-triangle" size={20} color="#ef4444" />
             <Text style={styles.actionText}>Report Issue</Text>
           </TouchableOpacity>

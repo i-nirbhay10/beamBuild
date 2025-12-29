@@ -205,7 +205,7 @@ export default function SafetyPage() {
 
 const styles = StyleSheet.create({
   screen: {flex: 1, backgroundColor: '#f1f5f9'},
-  container: {padding: 16, paddingBottom: 32},
+  container: {padding: 5, paddingBottom: 32},
 
   card: {borderWidth: 1, borderRadius: 12, padding: 8, borderColor: '#e5e7eb'},
   cardContent: {flexDirection: 'row', alignItems: 'flex-start'},

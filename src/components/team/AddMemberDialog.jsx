@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#080808ff',
     padding: 8,
     borderRadius: 6,
-    marginBottom: 12,
     justifyContent: 'center',
   },
   addBtnText: {color: '#fff', marginLeft: 6},

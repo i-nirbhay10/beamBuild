@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
-  FlatList,
 } from 'react-native';
 import TeamMemberCard from '../../../components/team/TeamMemberCard';
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,24 +18,34 @@ export default function TeamPage() {
   const [addMemberVisible, setAddMemberVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
 
-  const teamMembers = users?.slice(1) || []; // safe fallback
+  // Exclude current user
+  const teamMembers = users.slice(1);
+
+  // Correct role names (MATCH mockData)
   const supervisors = teamMembers.filter(u => u.role === 'supervisor');
   const engineers = teamMembers.filter(u => u.role === 'engineer');
   const laborers = teamMembers.filter(u => u.role === 'laborer');
-  const projectManagers = teamMembers.filter(u => u.role === 'project_manager');
+  const projectManagers = teamMembers.filter(u => u.role === 'project-manager');
 
   const stats = [
-    {title: 'Total Members', value: teamMembers.length},
-    {title: 'Project Managers', value: projectManagers.length},
-    {title: 'Supervisors', value: supervisors.length},
-    {title: 'Engineers', value: engineers.length},
-    {title: 'Laborers', value: laborers.length},
+    {title: 'Total', value: teamMembers.length, icon: 'users'},
+    {
+      title: 'PMs',
+      value: projectManagers.length,
+      icon: 'briefcase',
+    },
+    {title: 'Supervisors', value: supervisors.length, icon: 'shield'},
+    {title: 'Engineers', value: engineers.length, icon: 'cpu'},
+    {title: 'Laborers', value: laborers.length, icon: 'tool'},
   ];
 
-  // Filter members based on role + search text
   const getFilteredMembers = () => {
     let members = teamMembers;
+
     switch (filter) {
+      case 'project-manager':
+        members = projectManagers;
+        break;
       case 'supervisors':
         members = supervisors;
         break;
@@ -46,18 +55,26 @@ export default function TeamPage() {
       case 'laborers':
         members = laborers;
         break;
-      case 'project_manager':
-        members = projectManagers;
-        break;
       default:
         members = teamMembers;
     }
 
-    if (!members) return [];
     return members.filter(member =>
       member.name.toLowerCase().includes(searchText.toLowerCase()),
     );
   };
+
+  const filterButtons = [
+    {key: 'all', label: 'All', count: teamMembers.length},
+    {
+      key: 'project-manager',
+      label: 'Project Managers',
+      count: projectManagers.length,
+    },
+    {key: 'supervisors', label: 'Supervisors', count: supervisors.length},
+    {key: 'engineers', label: 'Engineers', count: engineers.length},
+    {key: 'laborers', label: 'Laborers', count: laborers.length},
+  ];
 
   return (
     <View style={{flex: 1}}>
@@ -68,8 +85,11 @@ export default function TeamPage() {
         <View style={styles.statsRow}>
           {stats.map(s => (
             <View key={s.title} style={styles.statBox}>
-              <Text style={styles.statValue}>{s.value}</Text>
-              <Text style={styles.statTitle}>{s.title}</Text>
+              <Icon name={s.icon} size={16} color="#6F1FFC" />
+              <View>
+                <Text style={styles.statValue}>{s.value}</Text>
+                <Text style={styles.statTitle}>{s.title}</Text>
+              </View>
             </View>
           ))}
         </View>
@@ -92,34 +112,29 @@ export default function TeamPage() {
         </View>
 
         {/* Filters */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.filtersRow}>
-          {[
-            'all',
-            'project_manager',
-            'supervisors',
-            'engineers',
-            'laborers',
-          ].map(f => (
-            <TouchableOpacity
-              key={f}
-              style={[styles.filterBtn, filter === f && styles.filterBtnActive]}
-              onPress={() => setFilter(f)}>
-              <Text
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.filtersRow}>
+            {filterButtons.map(f => (
+              <TouchableOpacity
+                key={f.key}
                 style={[
-                  styles.filterText,
-                  filter === f && styles.filterTextActive,
-                ]}>
-                {f.charAt(0).toUpperCase() + f.slice(1)} (
-                {getFilteredMembers().length})
-              </Text>
-            </TouchableOpacity>
-          ))}
+                  styles.filterBtn,
+                  filter === f.key && styles.filterBtnActive,
+                ]}
+                onPress={() => setFilter(f.key)}>
+                <Text
+                  style={[
+                    styles.filterText,
+                    filter === f.key && styles.filterTextActive,
+                  ]}>
+                  {f.label} ({f.count})
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </ScrollView>
 
-        {/* Team Members List */}
+        {/* Members */}
         {getFilteredMembers().map(user => (
           <TeamMemberCard key={user.id} user={user} />
         ))}
@@ -135,18 +150,38 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     justifyContent: 'space-between',
   },
-  statBox: {
-    width: '48%',
-    backgroundColor: '#7a8fd671',
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 8,
+  statsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 12,
   },
-  statValue: {fontSize: 18, fontWeight: '700'},
-  statTitle: {fontSize: 12, color: '#555'},
+  statBox: {
+    width: '30%',
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    gap: 8,
+    backgroundColor: '#F4F2FF',
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#6F1FFC',
+  },
+  statValue: {
+    fontSize: 16,
+    fontWeight: '700',
+    lineHeight: 18,
+  },
+  statTitle: {
+    fontSize: 11,
+    color: '#666',
+  },
 
   searchRow: {
     flexDirection: 'row',
+
     alignItems: 'center',
     marginBottom: 12,
     gap: 8,
@@ -157,6 +192,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
     paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#6F1FFC',
     borderRadius: 8,
     height: 40,
     gap: 6,
@@ -180,11 +217,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
-
   filtersRow: {
     flexDirection: 'row',
-    marginBottom: 12,
     gap: 6,
+    marginBottom: 12,
   },
   filterBtn: {
     paddingVertical: 4,

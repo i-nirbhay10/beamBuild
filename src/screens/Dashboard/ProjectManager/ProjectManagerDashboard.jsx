@@ -245,7 +245,7 @@ function SectionHeader({title, action, onPress}) {
 ===================== */
 
 const styles = StyleSheet.create({
-  container: {padding: 16, backgroundColor: '#f8fafc'},
+  container: {padding: 5, backgroundColor: '#f8fafc'},
 
   metricsGrid: {
     flexDirection: 'row',

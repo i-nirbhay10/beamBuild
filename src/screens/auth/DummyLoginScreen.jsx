@@ -66,33 +66,6 @@ export default function DummyLoginScreen({navigation}) {
     }
   };
 
-  // const handleLogin = () => {
-  //   if (!selectedUser) return;
-
-  //   const user = users.find(u => u.id === selectedUser);
-  //   console.log(user, '➡️ Navigating to MainDrawer');
-  //   login(user);
-
-  //   // Pass role to MainDrawer
-  //   navigation.replace('MainDrawer', {role: user.role});
-  // };
-
-  // const handleLogin = () => {
-  //   if (!selectedUser) return;
-
-  //   const user = users.find(u => u.id === selectedUser);
-
-  //   console.log(user, '➡️ Navigating to MainDrawer');
-  //   login(user);
-
-  //   // Simple role-based navigation (adjust later)
-  //   if (user.role === 'contractor') {
-  //     navigation.replace('MainDrawer');
-  //   } else {
-  //     navigation.replace('SupervisorDashboard');
-  //   }
-  // };
-
   const getUserTeamInfo = userId => {
     for (const team of teams) {
       const member = team.members.find(m => m.userId === userId);
@@ -215,7 +188,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0f172a',
-    padding: 16,
+    padding: 5,
   },
 
   header: {

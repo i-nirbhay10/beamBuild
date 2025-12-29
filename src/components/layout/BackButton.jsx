@@ -1,54 +1,68 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-const BackButton = ({navigation, title = 'Back', style}) => {
+const BackButton = ({navigation, title = 'Title', rightComponent}) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.85}
-      style={[styles.container, style]}
-      onPress={() => navigation.goBack()}>
-      <View style={styles.iconWrapper}>
-        <Icon name="arrow-left" size={18} color="#1F2937" />
-      </View>
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      {/* Left */}
+      <TouchableOpacity
+        style={styles.left}
+        activeOpacity={0.7}
+        onPress={() => navigation.goBack()}>
+        <Icon name="arrow-left" size={22} color="#111827" />
+      </TouchableOpacity>
+
+      {/* Center */}
+      <Text numberOfLines={1} style={styles.title}>
+        {title}
+      </Text>
+
+      {/* Right (optional placeholder to keep title centered) */}
+      <View style={styles.right}>{rightComponent || null}</View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    height: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'flex-start',
-    paddingVertical: 8,
-    paddingRight: 14,
-    paddingLeft: 6,
-    borderRadius: 24,
+    paddingHorizontal: 12,
     backgroundColor: '#FFFFFF',
 
-    // Shadow (iOS)
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: {width: 0, height: 2},
-
-    // Shadow (Android)
-    elevation: 3,
+    // Shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+        shadowOffset: {width: 0, height: 4},
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
   },
-  iconWrapper: {
-    height: 32,
-    width: 32,
-    borderRadius: 16,
-    backgroundColor: '#F3F4F6',
+  left: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    marginLeft: 8,
-    fontSize: 14,
+  title: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 16,
     fontWeight: '600',
-    color: '#1F2937',
+    color: '#111827',
+  },
+  right: {
+    width: 40,
+    alignItems: 'flex-end',
   },
 });
 

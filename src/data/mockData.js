@@ -4,60 +4,60 @@
 
 export const currentUser = {
   id: 'u1',
-  name: 'John Martinez',
-  email: 'john@buildpro.com',
+  name: 'Rahul Sharma',
+  email: 'rahul@buildpro.com',
   role: 'contractor',
   avatar:
     'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
-  phone: '+1 (555) 123-4567',
+  phone: '+91 98765 43210',
 };
 
 export const users = [
   currentUser,
   {
     id: 'u7',
-    name: 'Robert Thompson',
-    email: 'robert@buildpro.com',
+    name: 'Amit Kumar',
+    email: 'amit@buildpro.com',
     role: 'project-manager',
     avatar:
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u2',
-    name: 'Sarah Chen',
-    email: 'sarah@buildpro.com',
+    name: 'Priya Patel',
+    email: 'priya@buildpro.com',
     role: 'supervisor',
     avatar:
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u3',
-    name: 'Mike Johnson',
-    email: 'mike@buildpro.com',
+    name: 'Vikram Singh',
+    email: 'vikram@buildpro.com',
     role: 'engineer',
     avatar:
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u4',
-    name: 'Emily Davis',
-    email: 'emily@buildpro.com',
+    name: 'Neha Gupta',
+    email: 'neha@buildpro.com',
     role: 'engineer',
     avatar:
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u5',
-    name: 'Carlos Rodriguez',
-    email: 'carlos@buildpro.com',
+    name: 'Sanjay Verma',
+    email: 'sanjay@buildpro.com',
     role: 'laborer',
     avatar:
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
   },
   {
     id: 'u6',
-    name: 'James Wilson',
-    email: 'james@buildpro.com',
+    name: 'Ravi Desai',
+    email: 'ravi@buildpro.com',
     role: 'laborer',
     avatar:
       'https://www.devoutgrowth.com/admin/team_uploads/1763707290_6920099a27a61_WhatsApp%20Image%202025-11-21%20at%2012.08.10%20PM.jpeg',
@@ -422,7 +422,7 @@ export const notifications = [
     userId: 'u1',
     type: 'team',
     title: 'New Team Member',
-    message: 'Carlos Rodriguez has been added to Alpha Team',
+    message: 'Sanjay Verma has been added to Alpha Team',
     read: true,
     timestamp: '2024-11-18T11:00:00',
     link: '/team',
@@ -432,7 +432,7 @@ export const notifications = [
     userId: 'u1',
     type: 'message',
     title: 'New Message',
-    message: 'Sarah Chen sent a message in Downtown Office Complex',
+    message: 'Priya Patel sent a message in Downtown Office Complex',
     read: false,
     timestamp: '2024-11-20T09:30:00',
     link: '/messages',
